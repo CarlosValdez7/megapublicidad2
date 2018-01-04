@@ -412,7 +412,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         if (panel.equals("VENTA")) {
             ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
         } else {
-            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText(), txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
+            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

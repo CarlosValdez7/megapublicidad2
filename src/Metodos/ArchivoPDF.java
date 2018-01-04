@@ -249,11 +249,9 @@ public class ArchivoPDF {
         for (int counter = 0; counter < articulos.length; counter++) {
             table.addCell(String.valueOf(counter + 1));
             table.addCell(articulos[counter][1].toString());
-            // table.addCell(articulos[counter][1].toString()+"\t\t"+articulos[counter][2].toString()+
-            //          "\t"+articulos[counter][3].toString()+"\t"+articulos[counter][4].toString());
-            table.addCell(articulos[counter][2].toString());
             table.addCell(articulos[counter][3].toString());
             table.addCell(articulos[counter][4].toString());
+            table.addCell(articulos[counter][5].toString());
         }
         table.addCell("");
         table.addCell("");

@@ -47,9 +47,15 @@ public class ventanaArticulos extends javax.swing.JFrame {
      }
      */
     public void calcular() {
-        double importe = (Double.parseDouble(txtMedidas.getText()) * Double.parseDouble(precio))
-                * Double.parseDouble(txtCantidad.getText());
-        txtImporte.setText(df.format(importe) + "");
+
+        if (txtMedidas.getText().equals("-")) {
+            double importe = Double.parseDouble(precio)* Double.parseDouble(txtCantidad.getText());
+            txtImporte.setText(df.format(importe) + "");
+        } else {
+            double importe = (Double.parseDouble(txtMedidas.getText()) * Double.parseDouble(precio))
+                    * Double.parseDouble(txtCantidad.getText());
+            txtImporte.setText(df.format(importe) + "");
+        }
     }
 
     private void limpiar(JTable tabla) {
@@ -219,7 +225,7 @@ public class ventanaArticulos extends javax.swing.JFrame {
 
         jLabel2.setText("Medida");
 
-        txtMedidas.setText("1");
+        txtMedidas.setText("-");
         txtMedidas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMedidasKeyReleased(evt);
@@ -355,10 +361,15 @@ public class ventanaArticulos extends javax.swing.JFrame {
     // double alto=0,ancho=0;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       String comentario="";
+        if(!txtMedidas.getText().equals("-")){
+            comentario="("+txtMedidas.getText()+" ML)";
+        }
+        
         if (panel.equals("VENTAS")) {
-            ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText()+"("+txtMedidas.getText()+"lineales)", txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
+            ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText()+comentario , txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
         } else {
-            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText()+"("+txtMedidas.getText()+"lineales)", txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
+            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText()+comentario, txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -423,11 +434,11 @@ public class ventanaArticulos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-      /*  java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ventanaArticulos().setVisible(true);
-            }
-        });*/
+        /*  java.awt.EventQueue.invokeLater(new Runnable() {
+         public void run() {
+         new ventanaArticulos().setVisible(true);
+         }
+         });*/
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

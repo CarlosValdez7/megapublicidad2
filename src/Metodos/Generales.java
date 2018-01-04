@@ -198,9 +198,10 @@ public class Generales{
         }
     }
 
-    public void actualizarArticulo(String codigo, String nom, String desc, String prec, String pm) {
+    public void actualizarArticulo(String codigo, String nom, String desc, String prec, String pm,String tipo) {
         try {
-            String sql = "UPDATE productos set nombre='" + nom + "',descripcion='" + desc + "',precio=" + prec + ",precioMaquila=" + pm + " WHERE id='" + codigo + "' ";
+            String sql = "UPDATE productos set nombre='" + nom + "',descripcion='" + desc + "',precio=" + prec + ","
+                    + "precioMaquila=" + pm + ", tipoFormato='"+tipo+"' WHERE id='" + codigo + "' ";
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();
