@@ -410,9 +410,11 @@ public class ventanaGranFormato extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         if (panel.equals("VENTA")) {
-            ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
+            ventas.agregarArticulo(          txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", 
+                    txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
         } else {
-            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
+            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", 
+                    txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

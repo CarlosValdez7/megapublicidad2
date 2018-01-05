@@ -50,7 +50,7 @@ public class ArchivoPDF {
             Document documento = new Document(PageSize.LETTER);
             Image img = Image.getInstance("mega200px.png");
 
-            FileOutputStream ficheroPdf = new FileOutputStream(nombreArchivo + ".pdf");
+            FileOutputStream ficheroPdf = new FileOutputStream("W:\\megapublicidad2.0\\documentos\\"+nombreArchivo + ".pdf");
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
             documento.open();

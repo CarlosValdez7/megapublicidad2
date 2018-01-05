@@ -383,4 +383,23 @@ public class Generales{
     }
     
     
+    public void cargarCupones(DefaultTableModel modelo) {
+
+        try {
+            String sql = "SELECT codigo, descuento, fecha,estado from codigos";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+
+            while (rs.next()) {
+                Object[] datos = new Object[5];
+                for (int i = 0; i < 4; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+        }
+    }
+    
 }

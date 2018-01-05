@@ -314,9 +314,9 @@ public class Ventas {
             for (int i = 0; i < modelo.getRowCount(); i++) {
                 String codigo = modelo.getValueAt(i, 0) + "";
                 String prod = modelo.getValueAt(i, 1) + "";
-                String cant = modelo.getValueAt(i, 2) + "";
-                String pu = modelo.getValueAt(i, 3) + "";
-                String tot = modelo.getValueAt(i, 4) + "";
+                String cant = modelo.getValueAt(i, 3) + "";
+                String pu = modelo.getValueAt(i, 4) + "";
+                String tot = modelo.getValueAt(i, 5) + "";
 
                 sql = "INSERT INTO detalle_venta VALUES (" + noVenta + "," + codigo + ",'" + prod + "'," + cant + "," + pu + "," + tot + ",'PENDIENTE')";
                 System.out.println("LLEGUE AQUI: \n" + sql);

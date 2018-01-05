@@ -6,11 +6,14 @@ package megapublicidad2.pkg0;
 
 import Conexion.Conexion;
 import Metodos.ArchivoPDF;
+import Metodos.Controlador;
+import Metodos.Correo;
 import Metodos.Registros;
 import Metodos.Ticket2;
 import Metodos.Ventas;
 import com.itextpdf.text.DocumentException;
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -18,9 +21,14 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.ResourceBundle.Control;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,6 +44,9 @@ public class ventanaFacturas extends javax.swing.JFrame {
     Registros a = new Registros();
     ventanaFacturas facturas;
     Connection cn;
+    private JPanel contentPane;
+    File fichero = null;
+    Correo c = new Correo();
 
     public ventanaFacturas(String codigo, String cliente) {
         initComponents();
@@ -53,7 +64,24 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
         rellenarCampos();
         calcularAnticipos();
-       
+
+    }
+
+    public void enviarCorreo() {
+
+        c.setContrasenia("wyszcdlvkfaycili");
+        c.setUsuarioCorreo("carlosgerman.vc@gmail.com");
+        c.setAsunto("Recordatorio de pago");
+        c.setMensaje("Megapublicidad te manda este mensaje para recordar que tienes cuentas pendientes con nosotros.");
+        c.setDestino(txtCorreo.getText().trim());
+        c.setNombreArchivo(txtTema.getText()+".pdf");
+        c.setRutaArchivo(txtTema.getText()+".pdf");
+        Controlador co = new Controlador();
+        if (co.enviarCorreo(c)) {
+            JOptionPane.showMessageDialog(this, "Se envió");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error");
+        }
     }
 
     public void parametros(String combo) {
@@ -61,11 +89,11 @@ public class ventanaFacturas extends javax.swing.JFrame {
             botonConcretar.setVisible(false);
         }
         if (combo.equals("PENDIENTE")) {
-         comboEstatus.setSelectedItem("PENDIENTE");
-         } else {
-         comboEstatus.setSelectedItem("TERMINADO");
-         }
-        
+            comboEstatus.setSelectedItem("PENDIENTE");
+        } else {
+            comboEstatus.setSelectedItem("TERMINADO");
+        }
+
     }
 
     public void rellenarCampos() {
@@ -411,6 +439,8 @@ public class ventanaFacturas extends javax.swing.JFrame {
         botonConcretar = new javax.swing.JButton();
         txtFecha = new javax.swing.JTextField();
         txtTipoFactura = new javax.swing.JLabel();
+        txt_fichero = new javax.swing.JTextField();
+        txtRuta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Facturas");
@@ -491,6 +521,11 @@ public class ventanaFacturas extends javax.swing.JFrame {
         });
 
         jButton3.setText("Enviar Correo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Factura Producción");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -587,17 +622,6 @@ public class ventanaFacturas extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(txtTipoFactura))))
                                 .addComponent(jLabel9)
                                 .addComponent(jScrollPane1)
                                 .addComponent(jScrollPane10)
@@ -622,7 +646,18 @@ public class ventanaFacturas extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel17)
-                                                .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(txtTema, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel4)
+                                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(txtTipoFactura)))))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -634,7 +669,11 @@ public class ventanaFacturas extends javax.swing.JFrame {
                                                 .addComponent(jLabel8)
                                                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addComponent(jLabel16)
-                                        .addComponent(txtRepre, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtRepre, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(txt_fichero, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(21, 21, 21)
+                                            .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -715,8 +754,11 @@ public class ventanaFacturas extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(26, 26, 26)
-                                        .addComponent(txtTipoFactura))))
+                                        .addGap(23, 23, 23)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txtTipoFactura)
+                                            .addComponent(txt_fichero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtRuta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -850,6 +892,29 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Obtener archivo 
+      /*  JFileChooser file = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.pdf", "pdf");
+        file.setFileFilter(filtro);
+
+        int seleccion = file.showOpenDialog(contentPane);
+        //Si el usuario, pincha en aceptar
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            //Seleccionamos el fichero
+            fichero = file.getSelectedFile();
+            //Ecribe la ruta del fichero seleccionado en el campo de texto
+            txt_fichero.setText(fichero.getName());
+            txtRuta.setText(fichero.getAbsolutePath());
+
+            enviarCorreo();
+
+        }*/
+        enviarCorreo();
+
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -928,11 +993,13 @@ public class ventanaFacturas extends javax.swing.JFrame {
     private javax.swing.JTextField txtImp;
     private javax.swing.JTextField txtNumCliente;
     private javax.swing.JTextField txtRepre;
+    private javax.swing.JTextField txtRuta;
     private javax.swing.JTextField txtSub;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTema;
     private javax.swing.JLabel txtTipoFactura;
     private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txt_fichero;
     // End of variables declaration//GEN-END:variables
 }
