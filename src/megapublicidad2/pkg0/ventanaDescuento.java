@@ -5,6 +5,8 @@
 package megapublicidad2.pkg0;
 
 import Metodos.Ventas;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,11 +19,13 @@ public class ventanaDescuento extends javax.swing.JFrame {
      * Creates new form ventanaDescuento
      */
     ventanaPrincipal principal;
-    String panel = "";
+    String panel = "", fecha;
 
     public ventanaDescuento(String panel) {
         initComponents();
         setLocationRelativeTo(null);
+
+        fecha = new SimpleDateFormat("yyyy-MM-dd").format(GregorianCalendar.getInstance().getTime());
 
         this.panel = panel;
 
@@ -121,6 +125,7 @@ public class ventanaDescuento extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Ventas v = new Ventas();
+        
 
         if (v.validarCodigo(lCodigo.getText()) == null) {
             JOptionPane.showMessageDialog(this, "Este codigo no existe");
@@ -129,6 +134,16 @@ public class ventanaDescuento extends javax.swing.JFrame {
             txtExpira.setText(datosCodigo[1]);
             txtDesc.setText(datosCodigo[2]);
             txtEstatus.setText(datosCodigo[3]);
+
+            int dato = fecha.compareTo(datosCodigo[2]);
+            JOptionPane.showMessageDialog(this,dato);
+            if (dato == -1) {
+                txtEstatus.setText("CADUCADO");
+                v.actualizaEstatusCodigo(lCodigo.getText(), "CADUCADO");
+            } /*else if (dato == -1) {
+                txtEstatus.setText("VIGENTE");
+            }*/
+            //JOptionPane.showMessageDialog(this,dato);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -177,11 +192,11 @@ public class ventanaDescuento extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-      /*  java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ventanaDescuento().setVisible(true);
-            }
-        });*/
+        /*  java.awt.EventQueue.invokeLater(new Runnable() {
+         public void run() {
+         new ventanaDescuento().setVisible(true);
+         }
+         });*/
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

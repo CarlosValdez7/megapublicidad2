@@ -43,6 +43,18 @@ public class Generales{
             JOptionPane.showMessageDialog(null, "Error al guardar cliente.\n"+ex);
         }
     }
+    
+        public void insertaCupon(String nom, String desc, String fecha, String estatus) {
+        try {
+            String sql = "insert into codigos values(null,'" + nom + "','" + desc + "','" + fecha+"','" + estatus + "' )";
+
+            Statement stmt = cn.createStatement();
+            stmt.execute(sql);
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar cupon.\n"+ex);
+        }
+    }
 
     public void eliminarCliente(String codigo) {
         try {
@@ -137,7 +149,7 @@ public class Generales{
 
             while (rs.next()) {
                 Object[] datos = new Object[18];
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 9; i++) {
 
                     datos[i] = rs.getString(i + 1);
                 }
@@ -198,15 +210,28 @@ public class Generales{
         }
     }
 
-    public void actualizarArticulo(String codigo, String nom, String desc, String prec, String pm,String tipo) {
+    public void actualizarArticulo(String codigo, String nom, String desc, String prec, String pm,String tipo,String minima,String exis) {
         try {
             String sql = "UPDATE productos set nombre='" + nom + "',descripcion='" + desc + "',precio=" + prec + ","
-                    + "precioMaquila=" + pm + ", tipoFormato='"+tipo+"' WHERE id='" + codigo + "' ";
+                    + "precioMaquila=" + pm + ", tipoFormato='"+tipo+"',minima='"+minima+"',existencias='"+exis+"' WHERE id='" + codigo + "' ";
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en actualizar articulo");
+        }
+    }
+    
+    public void actualizarStock(String codigo, String stock) {
+        try {
+            String sql = "UPDATE productos set existencias='"+stock+"' WHERE id="+codigo;
+            System.out.println(sql);
+            PreparedStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
+            cmd.close();
+            JOptionPane.showMessageDialog(null,"Existencias actualizadas");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en actualizar stock");
         }
     }
 
@@ -277,16 +302,17 @@ public class Generales{
     public String saludo(String usuario) {
         try {
 
-            String sql = "SELECT nombre, apellido FROM usuarios WHERE contrasena='" + usuario + "' ";
+            String sql = "SELECT nombre, apellido,icono FROM usuarios WHERE contrasena='" + usuario + "' ";
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
 
             while (rs.next()) {
-                Object[] datos = new Object[3];
-                for (int i = 0; i < 2; i++) {
+                Object[] datos = new Object[4];
+                for (int i = 0; i < 3; i++) {
                     datos[i] = rs.getString(i + 1);
                 }
-                String a = datos[0] + " " + datos[1];
+                String a = datos[0] + " " + datos[1]+","+datos[2]+" ";
+                System.out.println(a);
                 return a;
 
             }
@@ -298,9 +324,9 @@ public class Generales{
 
     }
 
-    public void añadirUsu(String nom, String ape, String contra, String tipo) {
+    public void añadirUsu(String nom, String ape, String contra, String tipo,String ico) {
         try {
-            String sql = "insert into usuarios values(null,'" + nom + "','" + ape + "','" + contra + "','" + tipo + "')";
+            String sql = "insert into usuarios values(null,'" + nom + "','" + ape + "','" + contra + "','" + tipo + "', '"+ico+"')";
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();

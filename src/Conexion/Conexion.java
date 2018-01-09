@@ -17,7 +17,7 @@ public class Conexion{
         Connection con;
         try{
             Class.forName("com.mysql.jdbc.Driver");
-           // String url = "jdbc:mysql://104.236.17.212/megapublicidad?autoReconnect=true&useSSL=false";
+           //String url = "jdbc:mysql://104.236.17.212/megapublicidad?autoReconnect=true&useSSL=false";
            //con = DriverManager.getConnection(url, "megapub", "sistemas");
             String url = "jdbc:mysql://localhost/megapublicidad";
             con = DriverManager.getConnection(url, "root", "");

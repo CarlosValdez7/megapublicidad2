@@ -1,6 +1,5 @@
 package megapublicidad2.pkg0;
 
-
 import Conexion.Conexion;
 import Metodos.ArchivoPDF;
 import Metodos.Ticket2;
@@ -34,6 +33,7 @@ public class corteCaja extends javax.swing.JFrame {
      */
     Connection cn;
     cortedeCaja u = new cortedeCaja();
+    ventanaPrincipal prin;
     //ventanaCorte vc;
     String fecha = "", usuario = "";
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -609,34 +609,37 @@ public class corteCaja extends javax.swing.JFrame {
         try {
             String sql = "insert into cortecaja values(null,'" + fecha + "','" + retiroTotal.getText() + "','" + usuario + "') ";
 
-             PreparedStatement cmd = cn.prepareCall(sql);
-             cmd.execute();
+            PreparedStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
 
-             cmd.close();
-             JOptionPane.showMessageDialog(null, "Corte de caja guardado");
+            cmd.close();
+            JOptionPane.showMessageDialog(null, "Corte de caja guardado");
 
-             DefaultTableModel modelo = (DefaultTableModel) tablaCorte.getModel();
-             Object[][] articulos = obtenerArticulos(modelo);
+            DefaultTableModel modelo = (DefaultTableModel) tablaCorte.getModel();
+            Object[][] articulos = obtenerArticulos(modelo);
 
-             DefaultTableModel modelo2 = (DefaultTableModel) jTable1.getModel();
-             Object[][] articulos2 = obtenerArticulos(modelo2);
+            DefaultTableModel modelo2 = (DefaultTableModel) jTable1.getModel();
+            Object[][] articulos2 = obtenerArticulos(modelo2);
 
-             DefaultTableModel modelo3 = (DefaultTableModel) tablaTipos.getModel();
-             Object[][] articulos3 = obtenerArticulos(modelo3);
+            DefaultTableModel modelo3 = (DefaultTableModel) tablaTipos.getModel();
+            Object[][] articulos3 = obtenerArticulos(modelo3);
 
-             double eCaja11 = 0, tCaja11 = 0, cCaja11 = 0;
-             eCaja11 = Double.parseDouble(eCaja1.getText());
-             tCaja11 = Double.parseDouble(tCaja1.getText());
-             cCaja11 = Double.parseDouble(cCaja1.getText());
+            double eCaja11 = 0, tCaja11 = 0, cCaja11 = 0;
+            eCaja11 = Double.parseDouble(eCaja1.getText());
+            tCaja11 = Double.parseDouble(tCaja1.getText());
+            cCaja11 = Double.parseDouble(cCaja1.getText());
 
+            prin.iniciaCortes();
 
-             try {
-             nombre = "corteCaja_" + fecha;
-             p.pdfCorteCaja(nombre, articulos, articulos2, articulos3, fecha, totalCalculado.getText(), usuario,
-             eCaja.getText(), tCaja.getText(), cCaja.getText(), sumEfec.getText(), sumTar.getText(),
-             sumCheque.getText(), df.format(eCaja11), df.format(tCaja11), df.format(cCaja11), totalCaja.getText(), jTextField3.getText());
-
-             }catch(Exception e){}
+            try {
+                nombre = "corteCaja_" + fecha;
+                p.pdfCorteCaja(nombre, articulos, articulos2, articulos3, fecha, totalCalculado.getText(), usuario,
+                        eCaja.getText(), tCaja.getText(), cCaja.getText(), sumEfec.getText(), sumTar.getText(),
+                        sumCheque.getText(), df.format(eCaja11), df.format(tCaja11), df.format(cCaja11), totalCaja.getText(), jTextField3.getText());
+               
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error pdf corte de caja");
+            }
             SimpleDateFormat fTicket = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat hora = new SimpleDateFormat("hh:mm a");
             Calendar cal = GregorianCalendar.getInstance();
@@ -682,8 +685,8 @@ public class corteCaja extends javax.swing.JFrame {
                     + "Cheque:   $" + cCaja.getText() + "\n"
                     + "Total:    $" + totalCaja.getText() + "\n\n"
                     + "Retirado: $" + retiroTotal.getText() + "\n"
-                    +"\n  >>>>>ENTRADAS/SALIDAS <<<<<  \n";
-                    for (int i = 0; i < jTable1.getRowCount(); i++) {
+                    + "\n  >>>>>ENTRADAS/SALIDAS <<<<<  \n";
+            for (int i = 0; i < jTable1.getRowCount(); i++) {
                 String con = jTable1.getValueAt(i, 0) + "";
                 String tot = jTable1.getValueAt(i, 1) + "";
                 String tip = jTable1.getValueAt(i, 2) + "";
@@ -691,7 +694,7 @@ public class corteCaja extends javax.swing.JFrame {
                         tip + "\t" + con + "\n"
                         + "        Total: $" + tot + "\n";
             }
-                 tic+="================================\n"
+            tic += "================================\n"
                     + "       " + usuario + "\n"
                     + "     !!! NOS VEMOS MAÑANA !!!\n\n\n";
 
@@ -699,17 +702,16 @@ public class corteCaja extends javax.swing.JFrame {
             Ticket2 o = new Ticket2(tic);
 
             try {
-             Desktop desktop = Desktop.getDesktop();
-             desktop.open(new java.io.File(nombre + ".PDF"));
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\cortes\\" + nombre + ".pdf"));
 
-             } catch (Exception ex) {
-             JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());
-             }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en registro del corte" + ex);
         }
 
-//        vc.iniciaTabla();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -816,10 +818,10 @@ public class corteCaja extends javax.swing.JFrame {
 
         /* Create and display the form */
         /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new corteCaja().setVisible(true);
-            }
-        });*/
+         public void run() {
+         new corteCaja().setVisible(true);
+         }
+         });*/
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cCaja;

@@ -66,7 +66,7 @@ public class ArchivoPDF {
             documento.add(new Paragraph("Cuenta Banamex: 0199096973\n"));
 
             documento.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------------"));
-            documento.add(new Paragraph("Folio " + folio + "                                                  Cotización                                              Fecha " + fecha));
+            documento.add(new Paragraph("Folio " + folio + "                                                  "+tipo+"                                              Fecha " + fecha));
             documento.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------------"));
             documento.add(new Paragraph("" + nombre + "   " + repre + "   " + RFC));
             documento.add(new Paragraph("" + dire + "   " + email));
@@ -132,7 +132,7 @@ public class ArchivoPDF {
 
             Image img = Image.getInstance("mega200px.png");
 
-            FileOutputStream ficheroPdf = new FileOutputStream(nombreArchivo + ".pdf");
+            FileOutputStream ficheroPdf = new FileOutputStream("W:\\megapublicidad2.0\\documentos\\reportes\\"+nombreArchivo + ".pdf");
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
 
@@ -148,7 +148,7 @@ public class ArchivoPDF {
             documento.add(new Paragraph("Telefono 218-0320 Celular: 311-269-3605 Email: meganayarit@gmail.com\n"));
             documento.add(new Paragraph("Cuenta Banamex: 0199096973"));
             documento.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------------"));
-            documento.add(new Paragraph("                              " + comen));
+            documento.add(new Paragraph("              " + comen));
             documento.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------------"));
 
 
@@ -172,7 +172,7 @@ public class ArchivoPDF {
             Document documento = new Document(PageSize.LETTER);
             Image img = Image.getInstance("mega200px.png");
 
-            FileOutputStream ficheroPdf = new FileOutputStream(nombreArchivo + ".pdf");
+            FileOutputStream ficheroPdf = new FileOutputStream("W:\\megapublicidad2.0\\documentos\\cortes\\"+nombreArchivo + ".pdf");
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
             documento.open();

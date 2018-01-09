@@ -26,186 +26,6 @@ public class Ventas {
         cn = con.conectar();
     }
 
-    public void tablaLonas(DefaultTableModel modelo, String precio) {
-        try {
-
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Lonas'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaLonas\n" + ex);
-        }
-    }
-
-    public void tablaViniles(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Viniles de impresion'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaViniles");
-        }
-    }
-
-    public void tablaVinilesCorte(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Viniles de corte'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaVinilesCorte");
-        }
-    }
-
-    public void tablaOFF(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='OFFSET'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaOFF");
-        }
-    }
-
-    public void tablaImpDig(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Impresion Digital'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaImpDig");
-        }
-    }
-
-    public void tablaDisplay(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Display'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaDisplay");
-        }
-    }
-
-    public void tablaDiseño(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Diseño'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaDiseño");
-        }
-    }
-
-    public void tablaMO(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='M.O/Instalaciones'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaMO");
-        }
-    }
-
-    public void tablaEquipo(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Estructura y Equipo'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaEquipo");
-        }
-    }
-
-    public void tablaAcabados(DefaultTableModel modelo, String precio) {
-        try {
-            String sql = "SELECT id,nombre," + precio + " FROM productos where tipo='Acabados'";
-            CallableStatement cmd = cn.prepareCall(sql);
-            ResultSet rs = cmd.executeQuery();
-            while (rs.next()) {
-                Object[] datos = new Object[5];
-                for (int i = 0; i < 3; i++) {
-                    datos[i] = rs.getString(i + 1);
-                }
-                modelo.addRow(datos);
-            }
-            cmd.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaAcabados");
-        }
-    }
 
     public void RealizaVenta(DefaultTableModel modelo, String cliente, String concepto, String total, String fecha, String estado,
             String tipoPago, String estadoPago, String factu, String entregado, String usu,
@@ -240,15 +60,18 @@ public class Ventas {
                 cmd = cn.prepareCall(sql);
                 cmd.execute();
                 double medidas;
-                if (cant.equals("1")) {
-                    medidas = Double.parseDouble(med) + 0.5;
+                if (med.equals("-")) {
                 } else {
-                    medidas = (Double.parseDouble(med) + 0.5) * Double.parseDouble(cant);
+                    if (cant.equals("1")) {
+                        medidas = Double.parseDouble(med) + 0.5;
+                    } else {
+                        medidas = (Double.parseDouble(med) + 0.5) * Double.parseDouble(cant);
+                    }
+                    sql = "UPDATE productos SET existencias =existencias-" + medidas + " WHERE id='" + codigo + "'";
+                    System.out.println(sql);
+                    cmd = cn.prepareCall(sql);
+                    cmd.execute();
                 }
-                sql = "UPDATE productos SET existencias =existencias-" + medidas + " WHERE id='" + codigo + "'";
-                System.out.println(sql);
-                cmd = cn.prepareCall(sql);
-                cmd.execute();
             }
             cmd.close();
         } catch (Exception ex) {
@@ -300,12 +123,12 @@ public class Ventas {
             String sql = "INSERT INTO ventas VALUES(null,'" + cliente + "','" + concepto + "','" + total + "','" + fecha + "',"
                     + "'" + estado + "','" + tipoPago + "','" + estadoPago + "','" + factu + "','" + entregado + "','" + usu + "', "
                     + "'" + sub + "','" + descuento + "','" + impuestos + "','" + comentarios + "')";
-            System.out.println("LLEGUE AQUI: \n" + sql);
+            //System.out.println("LLEGUE AQUI: \n" + sql);
             CallableStatement cmd = cn.prepareCall(sql);
             cmd.execute();
 
             sql = "SELECT id FROM ventas ORDER BY id DESC LIMIT 1";
-            System.out.println("LLEGUE AQUI: \n" + sql);
+           // System.out.println("LLEGUE AQUI: \n" + sql);
             cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
             rs.next();
@@ -319,13 +142,13 @@ public class Ventas {
                 String tot = modelo.getValueAt(i, 5) + "";
 
                 sql = "INSERT INTO detalle_venta VALUES (" + noVenta + "," + codigo + ",'" + prod + "'," + cant + "," + pu + "," + tot + ",'PENDIENTE')";
-                System.out.println("LLEGUE AQUI: \n" + sql);
+              //  System.out.println("LLEGUE AQUI: \n" + sql);
                 cmd = cn.prepareCall(sql);
                 cmd.execute();
             }
 
             sql = "INSERT INTO detalle_abonos VALUES (" + noVenta + ",'" + efectivo + "','" + fecha + "','" + tipoPago + "')";
-            System.out.println("LLEGUE AQUI: \n" + sql);
+           // System.out.println("LLEGUE AQUI: \n" + sql);
             cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();
@@ -370,6 +193,21 @@ public class Ventas {
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en concretar venta 2\n" + ex);
+        }
+    }
+
+    public void actualizaEstatusCodigo(String cod, String estado) {
+
+        try {
+            String sql = "UPDATE codigos set estado='" + estado + "' where codigo= '" + cod + "' ";
+            System.out.println(sql);
+            CallableStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
+
+            cmd.close();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en actualizar codigo");
         }
     }
 }

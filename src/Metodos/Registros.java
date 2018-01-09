@@ -119,17 +119,17 @@ public class Registros {
                 for (int i = 0; i <= 9; i++) {
                     datos[i] = rs.getString(i + 1);
                 }
-                String a = datos[0] + "," + " "
-                        + datos[1] + "," + " "
-                        + datos[2] + "," + " "
-                        + datos[3] + "," + " "
-                        + datos[4] + "," + " "
-                        + datos[5] + "," + " "
-                        + datos[6] + "," + " "
-                        + datos[7] + "," + " "
-                        + datos[8] + "," + " "
+                String a = datos[0] + "," + ""
+                        + datos[1] + "," + ""
+                        + datos[2] + "," + ""
+                        + datos[3] + "," + ""
+                        + datos[4] + "," + ""
+                        + datos[5] + "," + ""
+                        + datos[6] + "," + ""
+                        + datos[7] + "," + ""
+                        + datos[8] + "," + ""
                         + datos[9];
-                System.out.println(a);
+               // System.out.println(a);
                 return a;
             }
 
@@ -144,12 +144,12 @@ public class Registros {
     public String calcularAnticipos(String id) {
         try {
             String sql = "select SUM(abono) from detalle_abonos where idVenta=" + id;
-            System.out.println(sql);
+    //        System.out.println(sql);
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
             rs.next();
             String anticipo = rs.getString("SUM(abono)");
-            System.out.println("Anti: " + anticipo);
+      //      System.out.println("Anti: " + anticipo);
             cmd.close();
             return anticipo;
 
