@@ -60,12 +60,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelCotizaciones.setVisible(false);
         panelCorteCaja.setVisible(false);
         panelReportes.setVisible(false);
-
+        panelContador.setVisible(false);
 
         fecha = new SimpleDateFormat("yyyy-MM-dd").format(GregorianCalendar.getInstance().getTime());
 
         cargarTablas();
-
     }
 
     public void cargarTablas() {
@@ -76,6 +75,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         iniciaCortes();
         iniciaOrdenes("general");
         cargarReportes("", "");
+        iniciaFacturas();
+        iniciaTransferencias();
 
         if (!ico.equals(" ")) {
             String path = "";
@@ -122,6 +123,26 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         limpiar(tablaUsuarios);
         DefaultTableModel modelo = (DefaultTableModel) tablaUsuarios.getModel();
         u.cargarUsu(modelo);
+    }
+
+    public void iniciaFacturas() {
+        limpiar(tablaFacturas);
+        DefaultTableModel modelo = (DefaultTableModel) tablaFacturas.getModel();
+        if (jRadioButton6.isSelected()) {
+            a.tablaFacturas(modelo);
+        } else {
+            a.tablaFacturasFIN(modelo);
+        }
+    }
+
+    public void iniciaTransferencias() {
+        limpiar(tablaTrans);
+        DefaultTableModel modelo = (DefaultTableModel) tablaTrans.getModel();
+        if (jRadioButton8.isSelected()) {
+            a.tablaTransferencias(modelo, "PENDIENTE");
+        } else {
+            a.tablaTransferenciasC(modelo, "COMPLETO");
+        }
     }
 
     public void cargarCupones() {
@@ -540,7 +561,28 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        panelContador = new javax.swing.JPanel();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel23 = new javax.swing.JPanel();
+        ventanaVentas = new javax.swing.JScrollPane();
+        tablaFacturas = new javax.swing.JTable();
+        jComboBox2 = new javax.swing.JComboBox();
+        txtBus1 = new javax.swing.JTextField();
+        jButton44 = new javax.swing.JButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
+        jRadioButton7 = new javax.swing.JRadioButton();
+        jPanel24 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        ventanaVentas1 = new javax.swing.JScrollPane();
+        tablaTrans = new javax.swing.JTable();
+        jComboBox3 = new javax.swing.JComboBox();
+        txtBus2 = new javax.swing.JTextField();
+        jButton49 = new javax.swing.JButton();
+        jRadioButton8 = new javax.swing.JRadioButton();
+        jRadioButton9 = new javax.swing.JRadioButton();
         panelProductos = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -773,6 +815,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         labelIconUsuario = new javax.swing.JLabel();
         jButton43 = new javax.swing.JButton();
+        jButton50 = new javax.swing.JButton();
         jPanel20 = new javax.swing.JPanel();
         jLabel61 = new javax.swing.JLabel();
 
@@ -794,6 +837,242 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panelContador.setOpaque(false);
+
+        jPanel23.setOpaque(false);
+
+        tablaFacturas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "#", "Cliente", "Concepto", "Fecha", "Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaFacturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaFacturasMouseClicked(evt);
+            }
+        });
+        ventanaVentas.setViewportView(tablaFacturas);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente", "Concepto", "Fecha", "Total" }));
+
+        txtBus1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBus1KeyReleased(evt);
+            }
+        });
+
+        jButton44.setText("Abrir");
+        jButton44.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton44ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup3.add(jRadioButton6);
+        jRadioButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRadioButton6.setForeground(new java.awt.Color(0, 51, 51));
+        jRadioButton6.setSelected(true);
+        jRadioButton6.setText("Pendientes");
+        jRadioButton6.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton6ItemStateChanged(evt);
+            }
+        });
+
+        buttonGroup3.add(jRadioButton7);
+        jRadioButton7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRadioButton7.setForeground(new java.awt.Color(0, 51, 51));
+        jRadioButton7.setText("Concretadas");
+        jRadioButton7.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton7ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ventanaVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 966, Short.MAX_VALUE)
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBus1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jRadioButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton7)))
+                .addContainerGap())
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton44)
+                    .addComponent(jRadioButton6)
+                    .addComponent(jRadioButton7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ventanaVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane2.addTab("Facturación", jPanel23);
+
+        jPanel24.setOpaque(false);
+
+        jPanel25.setOpaque(false);
+
+        tablaTrans.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "#", "Cliente", "Concepto", "Fecha", "Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaTrans.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaTransMouseClicked(evt);
+            }
+        });
+        ventanaVentas1.setViewportView(tablaTrans);
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente", "Concepto", "Fecha", "Total" }));
+
+        txtBus2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBus2KeyReleased(evt);
+            }
+        });
+
+        jButton49.setText("Abrir");
+        jButton49.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton49ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup4.add(jRadioButton8);
+        jRadioButton8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRadioButton8.setSelected(true);
+        jRadioButton8.setText("Pendientes");
+        jRadioButton8.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton8ItemStateChanged(evt);
+            }
+        });
+
+        buttonGroup4.add(jRadioButton9);
+        jRadioButton9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jRadioButton9.setText("Concretadas");
+        jRadioButton9.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton9ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel25Layout.createSequentialGroup()
+                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBus2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton49)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
+                        .addComponent(jRadioButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton9))
+                    .addComponent(ventanaVentas1))
+                .addContainerGap())
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel25Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBus2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton49)
+                    .addComponent(jRadioButton8)
+                    .addComponent(jRadioButton9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ventanaVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 986, Short.MAX_VALUE)
+            .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel24Layout.createSequentialGroup()
+                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 460, Short.MAX_VALUE)
+            .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel24Layout.createSequentialGroup()
+                    .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane2.addTab("Transferencias", jPanel24);
+
+        javax.swing.GroupLayout panelContadorLayout = new javax.swing.GroupLayout(panelContador);
+        panelContador.setLayout(panelContadorLayout);
+        panelContadorLayout.setHorizontalGroup(
+            panelContadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelContadorLayout.setVerticalGroup(
+            panelContadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(panelContador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1010, 540));
 
         panelProductos.setBackground(new java.awt.Color(255, 255, 255));
         panelProductos.setOpaque(false);
@@ -2001,11 +2280,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(labelTema)
                                 .addGap(969, 969, 969))
                             .addGroup(panelVentasLayout.createSequentialGroup()
-                                .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton46))
-                            .addGroup(panelVentasLayout.createSequentialGroup()
                                 .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelVentasLayout.createSequentialGroup()
+                                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton46))
                                     .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE))
@@ -3084,6 +3363,23 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton50.setBackground(new java.awt.Color(27, 51, 94));
+        jButton50.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton50.setForeground(new java.awt.Color(255, 255, 255));
+        jButton50.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/contabilidad.png"))); // NOI18N
+        jButton50.setText("Contador");
+        jButton50.setBorderPainted(false);
+        jButton50.setContentAreaFilled(false);
+        jButton50.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton50.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton50.setIconTextGap(40);
+        jButton50.setOpaque(true);
+        jButton50.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton50ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
@@ -3099,6 +3395,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addComponent(jButton38, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
             .addComponent(jButton43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3123,8 +3420,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton38, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton50, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 695));
@@ -3266,6 +3565,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelUsuarios.setVisible(false);
         panelInicio.setVisible(false);
         panelFacturas.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton5.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3278,6 +3578,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -3291,6 +3592,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelUsuarios.setVisible(false);
         panelInicio.setVisible(false);
         panelFacturas.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton6.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3303,6 +3605,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void comboTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTipoItemStateChanged
@@ -3425,6 +3728,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelCorteCaja.setVisible(false);
         panelInicio.setVisible(false);
         panelReportes.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton10.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3437,6 +3741,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -3509,6 +3814,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelUsuarios.setVisible(false);
         panelCorteCaja.setVisible(false);
         panelReportes.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton23.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3521,7 +3827,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
-
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jLabel32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MouseClicked
@@ -3653,6 +3959,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelUsuarios.setVisible(false);
         panelCorteCaja.setVisible(false);
         panelReportes.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton30.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3665,6 +3972,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
@@ -3783,6 +4091,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelUsuarios.setVisible(false);
         panelCorteCaja.setVisible(true);
         panelReportes.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton38.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3795,6 +4104,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton5.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton38ActionPerformed
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
@@ -3808,6 +4118,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelUsuarios.setVisible(false);
         panelCorteCaja.setVisible(false);
         panelReportes.setVisible(true);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton39.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3820,6 +4131,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton5.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton39ActionPerformed
 
     private void jButton5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton5FocusGained
@@ -3940,6 +4252,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelCorteCaja.setVisible(false);
         panelReportes.setVisible(false);
         panelInicio.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton14.setBackground(Color.getHSBColor(163, 238, 66));
@@ -3952,6 +4265,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton5.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton14ActionPerformed
     String icono = "1";
     private void jButton42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton42ActionPerformed
@@ -4036,6 +4350,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelUsuarios.setVisible(false);
         panelCorteCaja.setVisible(false);
         panelReportes.setVisible(false);
+        panelContador.setVisible(false);
 
         //CAMBIAR COLORES BOTOTES
         jButton43.setBackground(Color.getHSBColor(163, 238, 66));
@@ -4048,6 +4363,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton39.setBackground(Color.getColor("FFFFFF"));
         jButton14.setBackground(Color.getColor("FFFFFF"));
         jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton50.setBackground(Color.getColor("FFFFFF"));
     }//GEN-LAST:event_jButton43ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
@@ -4110,6 +4426,118 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelCotizaciones.setVisible(false);
         tipoPanel = "coti";
     }//GEN-LAST:event_jButton48ActionPerformed
+    String codFac = "", clienteFac = "";
+    private void tablaFacturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFacturasMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tablaFacturas.getModel();
+        codFac = (modelo.getValueAt(tablaFacturas.getSelectedRow(), 0) + "");
+        clienteFac = (modelo.getValueAt(tablaFacturas.getSelectedRow(), 1) + "");
+
+        if (evt.getClickCount() == 1) {
+            System.out.println("Se ha hecho un click");
+        }
+        if (evt.getClickCount() == 2) {
+            vetanaDetalleFactura vdf = new vetanaDetalleFactura(codFac, clienteFac, "FACTURA");
+            vdf.princ = this;
+            vdf.setVisible(true);
+        }
+    }//GEN-LAST:event_tablaFacturasMouseClicked
+
+    private void txtBus1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBus1KeyReleased
+        // TODO add your handling code here:
+        limpiar(tablaFacturas);
+        DefaultTableModel modelo = (DefaultTableModel) tablaFacturas.getModel();
+        String combo = jComboBox2.getSelectedItem() + "";
+        if (jRadioButton1.isSelected()) {
+            a.busquedaFacturas(modelo, txtBus.getText(), combo, "SI");
+        } else {
+            a.busquedaFacturas(modelo, txtBus.getText(), combo, "FIN");
+        }
+        //a.busquedaVenta(modelo, jTextField2.getText(), combo, tipo);
+    }//GEN-LAST:event_txtBus1KeyReleased
+
+    private void jButton44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton44ActionPerformed
+        // TODO add your handling code here:
+        iniciaFacturas();
+    }//GEN-LAST:event_jButton44ActionPerformed
+
+    private void jRadioButton6ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton6ItemStateChanged
+        // TODO add your handling code here:
+        iniciaFacturas();
+    }//GEN-LAST:event_jRadioButton6ItemStateChanged
+
+    private void jRadioButton7ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton7ItemStateChanged
+        // TODO add your handling code here:
+        iniciaFacturas();
+    }//GEN-LAST:event_jRadioButton7ItemStateChanged
+    String codTrans = "", clienteTrans = "";
+    private void tablaTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaTransMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tablaTrans.getModel();
+        codTrans = (modelo.getValueAt(tablaTrans.getSelectedRow(), 0) + "");
+        clienteTrans = (modelo.getValueAt(tablaTrans.getSelectedRow(), 1) + "");
+        if (evt.getClickCount() == 1) {
+            System.out.println("Se ha hecho un click");
+        }
+        if (evt.getClickCount() == 2) {
+            vetanaDetalleFactura vdf = new vetanaDetalleFactura(codTrans, clienteTrans, "TRANSFERENCIA");
+            vdf.princ = this;
+            vdf.setVisible(true);
+        }
+    }//GEN-LAST:event_tablaTransMouseClicked
+
+    private void txtBus2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBus2KeyReleased
+        // TODO add your handling code here:
+        limpiar(tablaTrans);
+        DefaultTableModel modelo = (DefaultTableModel) tablaTrans.getModel();
+        String combo = jComboBox2.getSelectedItem() + "";
+        if (jRadioButton3.isSelected()) {
+            a.busquedaTrans(modelo, txtBus1.getText(), combo, "PENDIENTE");
+        } else {
+            a.busquedaTrans(modelo, txtBus1.getText(), combo, "COMPLETO");
+        }
+    }//GEN-LAST:event_txtBus2KeyReleased
+
+    private void jButton49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton49ActionPerformed
+        // TODO add your handling code here:
+        iniciaTransferencias();
+    }//GEN-LAST:event_jButton49ActionPerformed
+
+    private void jRadioButton8ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton8ItemStateChanged
+        // TODO add your handling code here:
+        iniciaTransferencias();
+    }//GEN-LAST:event_jRadioButton8ItemStateChanged
+
+    private void jRadioButton9ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton9ItemStateChanged
+        // TODO add your handling code here:
+        iniciaTransferencias();
+    }//GEN-LAST:event_jRadioButton9ItemStateChanged
+
+    private void jButton50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton50ActionPerformed
+        // TODO add your handling code here:
+        panelContador.setVisible(true);
+        panelUsuarios.setVisible(false);
+        panelCotizaciones.setVisible(false);
+        panelFacturas.setVisible(false);
+        panelVentas.setVisible(false);
+        panelClientes.setVisible(false);
+        panelProductos.setVisible(false);
+        panelCorteCaja.setVisible(false);
+        panelReportes.setVisible(false);
+        panelInicio.setVisible(false);
+        //CAMBIAR COLORES BOTOTES
+        jButton50.setBackground(Color.getHSBColor(163, 238, 66));
+        //QUITAR COLOR
+        jButton6.setBackground(Color.getColor("FFFFFF"));
+        jButton43.setBackground(Color.getColor("FFFFFF"));
+        jButton10.setBackground(Color.getColor("FFFFFF"));
+        jButton23.setBackground(Color.getColor("FFFFFF"));
+        jButton30.setBackground(Color.getColor("FFFFFF"));
+        jButton39.setBackground(Color.getColor("FFFFFF"));
+        jButton5.setBackground(Color.getColor("FFFFFF"));
+        jButton38.setBackground(Color.getColor("FFFFFF"));
+        jButton14.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_jButton50ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4145,15 +4573,17 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        /*        java.awt.EventQueue.invokeLater(new Runnable() {
-         public void run() {
-         new ventanaPrincipal().setVisible(true);
-         }
-         });
-         */    }
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ventanaPrincipal().setVisible(true);
+            }
+        });*/
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox cmbSucursal;
     private javax.swing.JComboBox combo;
     private javax.swing.JComboBox combo1;
@@ -4200,16 +4630,21 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton41;
     private javax.swing.JButton jButton42;
     private javax.swing.JButton jButton43;
+    private javax.swing.JButton jButton44;
     private javax.swing.JButton jButton45;
     private javax.swing.JButton jButton46;
     private javax.swing.JButton jButton47;
     private javax.swing.JButton jButton48;
+    private javax.swing.JButton jButton49;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton50;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -4288,6 +4723,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -4300,6 +4738,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
+    private javax.swing.JRadioButton jRadioButton7;
+    private javax.swing.JRadioButton jRadioButton8;
+    private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -4312,6 +4754,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelAviso;
     private javax.swing.JLabel labelIconUsuario;
@@ -4321,6 +4764,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelTotal;
     private javax.swing.JLabel labelUsuarioLog;
     private javax.swing.JPanel panelClientes;
+    private javax.swing.JPanel panelContador;
     private javax.swing.JPanel panelCorteCaja;
     private javax.swing.JPanel panelCotizaciones;
     private javax.swing.JPanel panelFacturas;
@@ -4351,14 +4795,18 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tablaClientes;
     private javax.swing.JTable tablaCortes;
     private javax.swing.JTable tablaCupones;
+    private javax.swing.JTable tablaFacturas;
     private javax.swing.JTable tablaOrdenes;
     private javax.swing.JTable tablaReportes;
     private javax.swing.JTable tablaServ;
+    private javax.swing.JTable tablaTrans;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTable tablaVenta;
     private javax.swing.JTable tablaVenta1;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtBus;
+    private javax.swing.JTextField txtBus1;
+    private javax.swing.JTextField txtBus2;
     private javax.swing.JTextField txtBusquedaProductos;
     private javax.swing.JTextField txtCE;
     private javax.swing.JTextField txtCP;
@@ -4390,5 +4838,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtTotal1;
+    private javax.swing.JScrollPane ventanaVentas;
+    private javax.swing.JScrollPane ventanaVentas1;
     // End of variables declaration//GEN-END:variables
 }

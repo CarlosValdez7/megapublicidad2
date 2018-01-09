@@ -110,7 +110,6 @@ public class Registros {
     public String datosVenta(String id) {
         try {
             String sql = "Select concepto,total,fecha,estadoServicio,usuario,subtotal,descuento,impuestos,comentarios,estado from ventas where id=" + id;
-            System.out.println(sql);
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
 
@@ -163,7 +162,6 @@ public class Registros {
 
         try {
             String sql = "SELECT id, cliente, concepto,total,fecha,usuario,tipoPago FROM ventas "+where;
-            System.out.println(sql);
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
             while (rs.next()) {
@@ -178,5 +176,188 @@ public class Registros {
             JOptionPane.showMessageDialog(null, "Error en tablaReportes");
         }
     }
+    
+    // ACTUALIZAR EL ESTADO A TERMINADO
+    public void actualizaEstadoServ(String cod) {
+        try {
+            String sql = "update ventas set estadoServicio='TERMINADO' where id=" + cod;
+            PreparedStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en actualizaEstadoServ");
+        }
+    }
+    
+    
+    /**
+     * ************************************* REGISTROS CONTADOR
+     * **************************************
+     */
+    public void tablaFacturas(DefaultTableModel modelo) {
+        try {
+            String sql = "SELECT id,cliente,concepto,fecha,total FROM ventas where factura = 'SI'";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaFacturas");
+        }
+    }
+
+    public void tablaFacturasFIN(DefaultTableModel modelo) {
+        try {
+            String sql = "SELECT id,cliente,concepto,fecha,total FROM ventas where factura = 'FIN'";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaFacturasFin");
+        }
+    }
+
+    public void actualizaFactura(String cod) {
+        try {
+            String sql = "update ventas set factura='FIN' where id=" + cod;
+            PreparedStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en actualizar factura");
+        }
+    }
+
+    public void tablaTransferencias(DefaultTableModel modelo, String estado) {
+        try {
+            String sql = "SELECT id,cliente,concepto,fecha,total FROM ventas where tipoPago = 'TRANSFERENCIA' AND estadoPago='" + estado + "'";
+            System.out.println(sql);
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaTransferencias");
+        }
+    }
+
+    public void tablaTransferenciasC(DefaultTableModel modelo, String estado) {
+        try {
+            String sql = "SELECT id,cliente,concepto,fecha,total FROM ventas where tipoPago = 'TRANSFERENCIA' AND estadoPago='" + estado + "'";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaTransferenciasC");
+        }
+    }
+
+    public void transferenciaConcretada(String cod, String fecha) {
+        try {
+            String sql = "update ventas set estadoPago='COMPLETO', fecha='" + fecha + "' where id=" + cod;
+            PreparedStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en transferenciaConcretada");
+        }
+    }
+
+    public void busquedaFacturas(DefaultTableModel modelo, String palabra, String tipo, String estado) {
+        try {
+
+            String sql = "SELECT  id,cliente,concepto,fecha,total FROM ventas where factura = '" + estado + "' AND " + tipo + " like '" + palabra + "%'";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[18];
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en busquedaFacturas");
+        }
+    }
+
+    public void busquedaTrans(DefaultTableModel modelo, String palabra, String tipo, String estado) {
+        try {
+            String sql = "SELECT  id,cliente,concepto,fecha,total FROM ventas where tipoPago = 'TRANSFERENCIA' AND estadoPago='" + estado + "' AND " + tipo + " like '" + palabra + "%'";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+
+            while (rs.next()) {
+                Object[] datos = new Object[18];
+                for (int i = 0; i < 5; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en busquedaTrans");
+        }
+    }
+
+    public String datos(String cliente) {
+        try {
+            String sql = "Select * from clientes where Nombre='" + cliente + "'";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+
+            while (rs.next()) {
+                Object[] datos = new Object[18];
+                for (int i = 0; i <= 9; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                String a = datos[0] + ","
+                        + datos[1] + ","
+                        + datos[2] + ","
+                        + datos[3] + ","
+                        + datos[4] + ","
+                        + datos[5] + ","
+                        + datos[6] + ","
+                        + datos[7] + ","
+                        + datos[8] + ","
+                        + datos[9];
+                return a;
+            }
+
+            cmd.close();
+            //   cn.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex + "Error -> Datos");
+        }
+        return null;
+    }
+
 
 }
