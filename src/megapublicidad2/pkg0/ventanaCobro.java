@@ -2,6 +2,7 @@ package megapublicidad2.pkg0;
 
 
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,9 @@ public class ventanaCobro extends javax.swing.JFrame {
     String totalPago, ventana;
     Float total;
 
+    
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+    
     public ventanaCobro(String totalPago, String ventana) {
         initComponents();
         setLocationRelativeTo(null);
@@ -200,7 +204,6 @@ public class ventanaCobro extends javax.swing.JFrame {
         pComp = new javax.swing.JRadioButton();
         pCheq = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        radioCredito = new javax.swing.JRadioButton();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -259,6 +262,11 @@ public class ventanaCobro extends javax.swing.JFrame {
         pEfec.setForeground(new java.awt.Color(255, 255, 255));
         pEfec.setSelected(true);
         pEfec.setText("Efectivo");
+        pEfec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pEfecActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(pTar);
         pTar.setForeground(new java.awt.Color(255, 255, 255));
@@ -266,7 +274,7 @@ public class ventanaCobro extends javax.swing.JFrame {
 
         buttonGroup2.add(pAbon);
         pAbon.setForeground(new java.awt.Color(255, 255, 255));
-        pAbon.setText("Anticipo");
+        pAbon.setText("Credito");
 
         buttonGroup2.add(pComp);
         pComp.setForeground(new java.awt.Color(255, 255, 255));
@@ -286,40 +294,38 @@ public class ventanaCobro extends javax.swing.JFrame {
         jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("Transferencia");
 
-        buttonGroup1.add(radioCredito);
-        radioCredito.setForeground(new java.awt.Color(255, 255, 255));
-        radioCredito.setText("Credito");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addComponent(jSeparator5)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pComp)
+                    .addComponent(pAbon))
+                .addGap(91, 91, 91))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton2)
                     .addComponent(pEfec)
                     .addComponent(pTar)
-                    .addComponent(pComp)
-                    .addComponent(pAbon)
-                    .addComponent(pCheq, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radioCredito)
-                    .addComponent(jRadioButton2))
-                .addGap(10, 10, 10))
-            .addComponent(jSeparator5)
+                    .addComponent(pCheq, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
                 .addComponent(pEfec)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pTar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pCheq)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioCredito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pComp)
@@ -339,7 +345,7 @@ public class ventanaCobro extends javax.swing.JFrame {
                     .addComponent(labelEfectivo, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtEfectivo, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,8 +439,6 @@ public class ventanaCobro extends javax.swing.JFrame {
             tipoPago = "TARJETA";
         } else if (pCheq.isSelected()) {
             tipoPago = "CHEQUE";
-        } else if (radioCredito.isSelected()) {
-            tipoPago = "CREDITO";
         } else {
             tipoPago = "TRANSFERENCIA";
         }
@@ -483,7 +487,7 @@ public class ventanaCobro extends javax.swing.JFrame {
                         lblTxtCambio.setText(u.Convertir("0.00", true));
                     } else {
                         lblCambio.setText("" + (efectivo - pago));
-                        lblTxtCambio.setText(u.Convertir("" + (efectivo - pago), true));
+                        lblTxtCambio.setText(u.Convertir("" + df.format((efectivo - pago)), true));
                     }
                 }
             } else {
@@ -494,7 +498,7 @@ public class ventanaCobro extends javax.swing.JFrame {
                         lblTxtCambio.setText(u.Convertir("0.00", true));
                     } else {
                         lblCambio.setText("" + (pago - efectivo));
-                        lblTxtCambio.setText(u.Convertir("" + (pago - efectivo), true));
+                        lblTxtCambio.setText(u.Convertir("" + df.format((pago - efectivo)), true));
                     }
                 }
             }
@@ -504,6 +508,10 @@ public class ventanaCobro extends javax.swing.JFrame {
     private void pCheqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pCheqActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pCheqActionPerformed
+
+    private void pEfecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pEfecActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pEfecActionPerformed
 
     /**
      * @param args the command line arguments
@@ -586,7 +594,6 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.JRadioButton pEfec;
     private javax.swing.JRadioButton pTar;
     private javax.swing.JRadioButton rEntregado;
-    private javax.swing.JRadioButton radioCredito;
     private javax.swing.JTextField txtEfectivo;
     // End of variables declaration//GEN-END:variables
 }

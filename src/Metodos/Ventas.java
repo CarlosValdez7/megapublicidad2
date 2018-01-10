@@ -196,10 +196,10 @@ public class Ventas {
         }
     }
 
-    public void actualizaEstatusCodigo(String cod, String estado) {
+    public void actualizaEstatusCodigo(String fec) {
 
         try {
-            String sql = "UPDATE codigos set estado='" + estado + "' where codigo= '" + cod + "' ";
+            String sql = "UPDATE codigos set estado='CADUCADO' where fecha < '" + fec+ "' ";
             System.out.println(sql);
             CallableStatement cmd = cn.prepareCall(sql);
             cmd.execute();

@@ -195,12 +195,9 @@ public class ventanaAbonos extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         pEfec = new javax.swing.JRadioButton();
         pTar = new javax.swing.JRadioButton();
-        pAbon = new javax.swing.JRadioButton();
-        pComp = new javax.swing.JRadioButton();
         pCheq = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         radioCredito = new javax.swing.JRadioButton();
-        jSeparator5 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -213,7 +210,6 @@ public class ventanaAbonos extends javax.swing.JFrame {
         lblTxtTotal = new javax.swing.JLabel();
         lblTxtCambio = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        factura = new javax.swing.JRadioButton();
         rEntregado = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -258,23 +254,17 @@ public class ventanaAbonos extends javax.swing.JFrame {
         pEfec.setForeground(new java.awt.Color(255, 255, 255));
         pEfec.setSelected(true);
         pEfec.setText("Efectivo");
+        pEfec.setOpaque(false);
 
         buttonGroup1.add(pTar);
         pTar.setForeground(new java.awt.Color(255, 255, 255));
         pTar.setText("Tarjeta");
-
-        buttonGroup2.add(pAbon);
-        pAbon.setForeground(new java.awt.Color(255, 255, 255));
-        pAbon.setText("Anticipo");
-
-        buttonGroup2.add(pComp);
-        pComp.setForeground(new java.awt.Color(255, 255, 255));
-        pComp.setSelected(true);
-        pComp.setText("Pago Completo");
+        pTar.setOpaque(false);
 
         buttonGroup1.add(pCheq);
         pCheq.setForeground(new java.awt.Color(255, 255, 255));
         pCheq.setText("Cheque");
+        pCheq.setOpaque(false);
         pCheq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pCheqActionPerformed(evt);
@@ -284,46 +274,40 @@ public class ventanaAbonos extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("Transferencia");
+        jRadioButton2.setOpaque(false);
 
         buttonGroup1.add(radioCredito);
         radioCredito.setForeground(new java.awt.Color(255, 255, 255));
         radioCredito.setText("Credito");
+        radioCredito.setOpaque(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pEfec)
                     .addComponent(pTar)
-                    .addComponent(pComp)
-                    .addComponent(pAbon)
                     .addComponent(pCheq, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pEfec)
                     .addComponent(radioCredito)
                     .addComponent(jRadioButton2))
-                .addGap(10, 10, 10))
-            .addComponent(jSeparator5)
+                .addGap(16, 16, 16))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(pEfec)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pTar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pCheq)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(radioCredito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pComp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pAbon))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -403,10 +387,6 @@ public class ventanaAbonos extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bandera.png"))); // NOI18N
         jLabel6.setText("  $");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 90, 40));
-
-        factura.setForeground(new java.awt.Color(255, 255, 255));
-        factura.setText("Facturación");
-        jPanel1.add(factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, -1, -1));
 
         rEntregado.setForeground(new java.awt.Color(255, 255, 255));
         rEntregado.setText("Entregado");
@@ -560,7 +540,6 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.JButton btnCancelar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JRadioButton factura;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -574,16 +553,13 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel labelEfectivo;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel lblCambio;
     private javax.swing.JLabel lblPago;
     private javax.swing.JLabel lblTxtCambio;
     private javax.swing.JLabel lblTxtTotal;
-    private javax.swing.JRadioButton pAbon;
     private javax.swing.JRadioButton pCheq;
-    private javax.swing.JRadioButton pComp;
     private javax.swing.JRadioButton pEfec;
     private javax.swing.JRadioButton pTar;
     private javax.swing.JRadioButton rEntregado;

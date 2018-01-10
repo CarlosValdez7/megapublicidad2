@@ -19,7 +19,8 @@ public class ventanaDescuento extends javax.swing.JFrame {
      * Creates new form ventanaDescuento
      */
     ventanaPrincipal principal;
-    String panel = "", fecha;
+    String panel = "", fecha; 
+    Ventas v = new Ventas();
 
     public ventanaDescuento(String panel) {
         initComponents();
@@ -29,6 +30,7 @@ public class ventanaDescuento extends javax.swing.JFrame {
 
         this.panel = panel;
 
+        v.actualizaEstatusCodigo(fecha);
     }
 
     /**
@@ -54,18 +56,24 @@ public class ventanaDescuento extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Validar Codigo");
+        setBackground(new java.awt.Color(27, 51, 94));
+        setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Validar Codigo"));
+        jPanel1.setBackground(new java.awt.Color(27, 51, 94));
+        jPanel1.setForeground(new java.awt.Color(27, 51, 94));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel1.add(lCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 315, -1));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Codigo Promocional");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
 
-        jButton1.setText("O");
+        jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -76,18 +84,26 @@ public class ventanaDescuento extends javax.swing.JFrame {
         txtExpira.setEditable(false);
         jPanel1.add(txtExpira, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 142, -1));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Expiración");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Descuento");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, -1));
 
         txtDesc.setEditable(false);
         jPanel1.add(txtDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 65, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("%");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 93, -1, 20));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Estatus");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
@@ -106,17 +122,11 @@ public class ventanaDescuento extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
         );
 
         pack();
@@ -124,9 +134,6 @@ public class ventanaDescuento extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Ventas v = new Ventas();
-        
-
         if (v.validarCodigo(lCodigo.getText()) == null) {
             JOptionPane.showMessageDialog(this, "Este codigo no existe");
         } else {
@@ -134,16 +141,6 @@ public class ventanaDescuento extends javax.swing.JFrame {
             txtExpira.setText(datosCodigo[1]);
             txtDesc.setText(datosCodigo[2]);
             txtEstatus.setText(datosCodigo[3]);
-
-            int dato = fecha.compareTo(datosCodigo[2]);
-            JOptionPane.showMessageDialog(this,dato);
-            if (dato == -1) {
-                txtEstatus.setText("CADUCADO");
-                v.actualizaEstatusCodigo(lCodigo.getText(), "CADUCADO");
-            } /*else if (dato == -1) {
-                txtEstatus.setText("VIGENTE");
-            }*/
-            //JOptionPane.showMessageDialog(this,dato);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

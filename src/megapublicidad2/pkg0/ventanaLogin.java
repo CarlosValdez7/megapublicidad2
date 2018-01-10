@@ -89,12 +89,12 @@ public class ventanaLogin extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelMensajeBar.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(labelMensajeBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 488, 240, 10));
+        getContentPane().add(labelMensajeBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 535, 310, 20));
 
-        jProgressBar1.setForeground(new java.awt.Color(255, 51, 51));
-        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 469, 245, 20));
+        jProgressBar1.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 510, 310, 20));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/loginchico.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoLogin.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-7, 0, 480, -1));
 
         botonIngresar.setText("Acceder");
@@ -108,7 +108,7 @@ public class ventanaLogin extends javax.swing.JFrame {
                 botonIngresarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 140, 50));
+        getContentPane().add(botonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 150, 50));
 
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +116,7 @@ public class ventanaLogin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, 140, 50));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 150, 50));
 
         txtCon.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         txtCon.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -124,11 +124,11 @@ public class ventanaLogin extends javax.swing.JFrame {
                 txtConKeyPressed(evt);
             }
         });
-        getContentPane().add(txtCon, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 245, 42));
+        getContentPane().add(txtCon, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 384, 245, 42));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Centro", "Allende" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 300, 245, 47));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 258, 245, 47));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

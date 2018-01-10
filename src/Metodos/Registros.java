@@ -326,6 +326,25 @@ public class Registros {
             JOptionPane.showMessageDialog(null, "Error en busquedaTrans");
         }
     }
+    
+    public void busquedaOrdenes(DefaultTableModel modelo, String tipo, String palabra) {
+        try {
+            String sql = "SELECT id,cliente,concepto,fecha,total,usuario FROM ventas where "+ tipo + " like '" + palabra + "%'";
+            System.out.println(sql);
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 6; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaOrdenes");
+        }
+    }
 
     public String datos(String cliente) {
         try {
