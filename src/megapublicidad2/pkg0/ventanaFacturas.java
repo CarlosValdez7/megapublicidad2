@@ -231,7 +231,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         Ticket2 t = new Ticket2(tic);
 
         JOptionPane.showMessageDialog(null, "Pago registrado");
-
+        
 
     }
 
@@ -549,6 +549,8 @@ public class ventanaFacturas extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Adeudo");
 
+        txtAdeudo.setText("-");
+
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Total");
@@ -577,7 +579,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf grande.png"))); // NOI18N
-        jButton2.setText("Factura PDF");
+        jButton2.setText("Abrir PDF");
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -607,7 +609,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pdf grande.png"))); // NOI18N
-        jButton4.setText("Factura Producción");
+        jButton4.setText("Crear PDF");
         jButton4.setBorderPainted(false);
         jButton4.setContentAreaFilled(false);
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -643,7 +645,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -947,9 +949,11 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (txtAdeudo.getText().equals("0.0")) {
+        if (txtAdeudo.getText().equals("0.00")) {
             JOptionPane.showMessageDialog(this, "Orden Liquidada");
-        } else {
+        }else if(txtAdeudo.getText().equals("-")){
+            JOptionPane.showMessageDialog(this,"Esta orden no admite abonos");
+        }else{
             ventanaAbonos va = new ventanaAbonos(txtAdeudo.getText());
             va.facturas = this;
             va.setVisible(true);
@@ -963,7 +967,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
             desktop.open(new java.io.File(txtTema.getText() + ".PDF"));
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "El PDF no existe");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -974,7 +978,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
         Object[][] articulos = obtenerArticulos(modelo);
         try {
-            p.pdfCotización(txtTema.getText(), txtCodigo.getText(), txtTema.getText(), articulos, "Venta", txtFecha.getText(), txtTotal.getText(),
+            p.pdfCotización2(txtTema.getText(), txtCodigo.getText(), txtTema.getText(), articulos, "Venta", txtFecha.getText(), txtTotal.getText(),
                     txtCliente.getText(), txtRepre.getText(), "", "", txtCorreo.getText(),
                     "", txtImp.getText(), txtSub.getText(), txtDesc.getText(), txtUsuario.getText());
         } catch (DocumentException ex) {
@@ -985,7 +989,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
         try {
             Desktop desktop = Desktop.getDesktop();
-            desktop.open(new java.io.File(txtTema.getText() + ".PDF"));
+            desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\"+txtTema.getText() + ".pdf"));
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());

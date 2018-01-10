@@ -568,6 +568,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAdeudo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="-"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTotal">
         </Component>
@@ -608,7 +611,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButton1" max="32767" attributes="0"/>
                           <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton3" alignment="0" pref="112" max="32767" attributes="0"/>
                           <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -670,7 +673,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/pdf grande.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Factura PDF"/>
+                <Property name="text" type="java.lang.String" value="Abrir PDF"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -718,7 +721,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Imagenes/pdf grande.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Factura Producci&#xf3;n"/>
+                <Property name="text" type="java.lang.String" value="Crear PDF"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">

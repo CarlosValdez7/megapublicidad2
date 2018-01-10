@@ -77,6 +77,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         cargarReportes("", "");
         iniciaFacturas();
         iniciaTransferencias();
+        iniciaPendientes();
 
         if (!ico.equals(" ")) {
             String path = "";
@@ -104,7 +105,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             ImageIcon icon = new ImageIcon(url);
             labelIconUsuario.setIcon(icon);
         }
-        //calcularExistencias();
+        calcularExistencias();
     }
 
     public void agregarArticulo(String codigo, String articulo, String medidas, String cantidad, String pu, String importe) {
@@ -123,6 +124,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         limpiar(tablaUsuarios);
         DefaultTableModel modelo = (DefaultTableModel) tablaUsuarios.getModel();
         u.cargarUsu(modelo);
+    }
+    
+    public void iniciaPendientes() {
+        limpiar(tablaPendientes);
+        DefaultTableModel modelo = (DefaultTableModel) tablaPendientes.getModel();
+        a.tablaPendientes(modelo);
     }
 
     public void iniciaFacturas() {
@@ -694,8 +701,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jScrollPane10 = new javax.swing.JScrollPane();
         tablaVenta = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
-        labelTotal = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtComentarios = new javax.swing.JTextArea();
@@ -804,6 +809,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel54 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         panelInicio = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        tablaPendientes = new javax.swing.JTable();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
         jLabel63 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         labelUsuarioLog = new javax.swing.JLabel();
@@ -2053,30 +2064,15 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         jPanel9.setBackground(new java.awt.Color(112, 144, 244));
 
-        labelTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelTotal.setForeground(new java.awt.Color(255, 255, 255));
-        labelTotal.setText("-");
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("TOTAL:  $");
-
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelTotal)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 999, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         jButton11.setBackground(new java.awt.Color(102, 153, 255));
@@ -2308,8 +2304,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addGroup(panelVentasLayout.createSequentialGroup()
                                 .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton46)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jButton46))
                             .addGroup(panelVentasLayout.createSequentialGroup()
                                 .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -3201,15 +3196,95 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         panelInicio.setBackground(new java.awt.Color(255, 255, 255));
         panelInicio.setOpaque(false);
 
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenes pendientes"));
+        jPanel14.setOpaque(false);
+
+        tablaPendientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "#", "Cliente", "Concepto", "Fecha", "Total", "Usuario"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaPendientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPendientesMouseClicked(evt);
+            }
+        });
+        jScrollPane13.setViewportView(tablaPendientes);
+
+        jLabel64.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel64.setText("¡Haz doble click para obtener más información!");
+
+        jLabel65.setText("Recuerda que si ya fue concluida un orden, dar click en \"Terminar\" para cambiar su estatus.");
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel64)
+                    .addComponent(jLabel65))
+                .addContainerGap(529, Short.MAX_VALUE))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel64)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel65)
+                .addContainerGap(389, Short.MAX_VALUE))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                    .addContainerGap(51, Short.MAX_VALUE)
+                    .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+
+        jLabel62.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel62.setText("¡BIENVENIDO!");
+
         javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
         panelInicio.setLayout(panelInicioLayout);
         panelInicioLayout.setHorizontalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
+            .addGroup(panelInicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelInicioLayout.createSequentialGroup()
+                        .addComponent(jLabel62)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 538, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel62)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.add(panelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1010, 538));
@@ -4616,6 +4691,21 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTextField1KeyReleased
 
+    private void tablaPendientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPendientesMouseClicked
+        //Tabla de pendientes ..
+        DefaultTableModel modelo = (DefaultTableModel) tablaPendientes.getModel();
+        String codigo = modelo.getValueAt(tablaPendientes.getSelectedRow(), 0) + "";  //id orden
+        String cliente = modelo.getValueAt(tablaPendientes.getSelectedRow(), 1) + "";  //cliente
+
+        if (evt.getClickCount() == 1) {
+            System.out.println("Se ha hecho un click");
+        }
+        if (evt.getClickCount() == 2) {
+            ventanaFacturas vf = new ventanaFacturas(codigo, cliente);
+            vf.setVisible(true);
+        }        
+    }//GEN-LAST:event_tablaPendientesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -4743,7 +4833,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -4784,7 +4873,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -4793,6 +4885,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
@@ -4824,6 +4917,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -4840,7 +4934,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelIcono;
     private javax.swing.JLabel labelTema;
     private javax.swing.JLabel labelTema1;
-    private javax.swing.JLabel labelTotal;
     private javax.swing.JLabel labelUsuarioLog;
     private javax.swing.JPanel panelClientes;
     private javax.swing.JPanel panelContador;
@@ -4876,6 +4969,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tablaCupones;
     private javax.swing.JTable tablaFacturas;
     private javax.swing.JTable tablaOrdenes;
+    private javax.swing.JTable tablaPendientes;
     private javax.swing.JTable tablaReportes;
     private javax.swing.JTable tablaServ;
     private javax.swing.JTable tablaTrans;

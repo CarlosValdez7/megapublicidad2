@@ -432,7 +432,7 @@ public class ventanaAbonos extends javax.swing.JFrame {
         }
         
         facturas.abonar(txtEfectivo.getText(),tipoPago,pagos,entregado);
-
+        this.dispose();
         // ventas = new ventanaVenta2();
 /*        if (ventana.equals("venta")) {
            ventas.cobrar(lblCambio.getText(), efectivo, estadoPago, tipoPago, totalPago, fact, entregado);

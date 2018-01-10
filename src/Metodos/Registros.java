@@ -25,6 +25,24 @@ public class Registros {
         cn = con.conectar();
     }
 
+    public void tablaPendientes(DefaultTableModel modelo) {
+        try {
+            String sql = "SELECT id,cliente,concepto,fecha,total,usuario FROM ventas where estadoServicio='PENDIENTE'";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 6; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaOrdenes");
+        }
+    }
+
     // **************************** querys para cotizaciones blabla **********************************
     public void tablaOrdenes(DefaultTableModel modelo, String estadoVenta, String estadoServicio) {
         try {
