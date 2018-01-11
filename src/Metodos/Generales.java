@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author German Valdez
  */
-public class Generales{
+public class Generales {
 
     Connection cn;
 
@@ -36,23 +36,23 @@ public class Generales{
             Statement stmt = cn.createStatement();
             stmt.execute(sql);
             /*PreparedStatement cmd = cn.prepareCall(sql);
-            cmd.execute();
+             cmd.execute();
 
-            cmd.close();*/
+             cmd.close();*/
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar cliente.\n"+ex);
+            JOptionPane.showMessageDialog(null, "Error al guardar cliente.\n" + ex);
         }
     }
-    
-        public void insertaCupon(String nom, String desc, String fecha, String estatus) {
+
+    public void insertaCupon(String nom, String desc, String fecha, String estatus) {
         try {
-            String sql = "insert into codigos values(null,'" + nom + "','" + desc + "','" + fecha+"','" + estatus + "' )";
+            String sql = "insert into codigos values(null,'" + nom + "','" + desc + "','" + fecha + "','" + estatus + "' )";
 
             Statement stmt = cn.createStatement();
             stmt.execute(sql);
-            
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar cupon.\n"+ex);
+            JOptionPane.showMessageDialog(null, "Error al guardar cupon.\n" + ex);
         }
     }
 
@@ -114,13 +114,13 @@ public class Generales{
             }
             cmd.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error en tablaClientes\n"+ex);
+            JOptionPane.showMessageDialog(null, "Error en tablaClientes\n" + ex);
         }
     }
-    
+
     public void busquedaClientes(DefaultTableModel modelo, String palabra, String tipo) {
         try {
-            String sql = "SELECT  * FROM clientes where "+ tipo + " like '" + palabra + "%'";
+            String sql = "SELECT  * FROM clientes where " + tipo + " like '" + palabra + "%'";
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
 
@@ -139,11 +139,10 @@ public class Generales{
             JOptionPane.showMessageDialog(null, "Error en busquedaClientes");
         }
     }
-    
-    
+
     public void busquedaProductos(DefaultTableModel modelo, String palabra, String tipo) {
         try {
-            String sql = "SELECT  * FROM productos where "+ tipo + " like '" + palabra + "%'";
+            String sql = "SELECT  * FROM productos where " + tipo + " like '" + palabra + "%'";
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
 
@@ -163,13 +162,11 @@ public class Generales{
         }
     }
 
-    
     /* METODOS PARA INSERTAR ELIMINAR Y MODIFICAR PRODUCTOS O SERVICIOS EN EL SISTEMA*/
-
-    public void tablaProductos(DefaultTableModel modelo,String where) {
+    public void tablaProductos(DefaultTableModel modelo, String where) {
 
         try {
-            String sql = "SELECT * FROM productos "+where;
+            String sql = "SELECT * FROM productos " + where;
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
             while (rs.next()) {
@@ -188,7 +185,7 @@ public class Generales{
     public void insertaProducto(String tipo, String nombre, String desc, Double prec, Double prec2,
             String tipoF, String minima, String existencia) {
         try {
-            String sql = "insert into productos values(null,'" + tipo + "','" + nombre + "','" + desc + "','" + prec + "','" + prec2 + "', '"+tipoF+"','"+minima+"','"+existencia+"')";
+            String sql = "insert into productos values(null,'" + tipo + "','" + nombre + "','" + desc + "','" + prec + "','" + prec2 + "', '" + tipoF + "','" + minima + "','" + existencia + "')";
 
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
@@ -210,10 +207,10 @@ public class Generales{
         }
     }
 
-    public void actualizarArticulo(String codigo, String nom, String desc, String prec, String pm,String tipo,String minima,String exis) {
+    public void actualizarArticulo(String codigo, String nom, String desc, String prec, String pm, String tipo, String minima, String exis) {
         try {
             String sql = "UPDATE productos set nombre='" + nom + "',descripcion='" + desc + "',precio=" + prec + ","
-                    + "precioMaquila=" + pm + ", tipoFormato='"+tipo+"',minima='"+minima+"',existencias='"+exis+"' WHERE id='" + codigo + "' ";
+                    + "precioMaquila=" + pm + ", tipoFormato='" + tipo + "',minima='" + minima + "',existencias='" + exis + "' WHERE id='" + codigo + "' ";
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();
@@ -221,15 +218,15 @@ public class Generales{
             JOptionPane.showMessageDialog(null, "Error en actualizar articulo");
         }
     }
-    
+
     public void actualizarStock(String codigo, String stock) {
         try {
-            String sql = "UPDATE productos set existencias='"+stock+"' WHERE id="+codigo;
+            String sql = "UPDATE productos set existencias='" + stock + "' WHERE id=" + codigo;
             System.out.println(sql);
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();
-            JOptionPane.showMessageDialog(null,"Existencias actualizadas");
+            JOptionPane.showMessageDialog(null, "Existencias actualizadas");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en actualizar stock");
         }
@@ -311,7 +308,7 @@ public class Generales{
                 for (int i = 0; i < 3; i++) {
                     datos[i] = rs.getString(i + 1);
                 }
-                String a = datos[0] + " " + datos[1]+","+datos[2]+" ";
+                String a = datos[0] + " " + datos[1] + "," + datos[2] + " ";
                 System.out.println(a);
                 return a;
 
@@ -324,9 +321,9 @@ public class Generales{
 
     }
 
-    public void añadirUsu(String nom, String ape, String contra, String tipo,String ico) {
+    public void añadirUsu(String nom, String ape, String contra, String tipo, String ico) {
         try {
-            String sql = "insert into usuarios values(null,'" + nom + "','" + ape + "','" + contra + "','" + tipo + "', '"+ico+"')";
+            String sql = "insert into usuarios values(null,'" + nom + "','" + ape + "','" + contra + "','" + tipo + "', '" + ico + "')";
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();
@@ -343,8 +340,28 @@ public class Generales{
             cmd.close();
             // cn.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Error en  eliminar usuario" + ex);
+            JOptionPane.showMessageDialog(null, "Error en  eliminar usuario" + ex);
         }
+    }
+
+    public String llenarCategorias() {
+        try {
+            String sql = "SELECT nombre FROM categorias ORDER BY nombre ASC";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            String a = "Seleccione..,";
+            while (rs.next()) {
+                Object[] datos = new Object[2];
+                for (int i = 0; i < 1; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                a += datos[0] + ",";
+            }
+            cmd.close();
+            return a;
+        } catch (Exception ex) {
+        }
+        return null;
     }
 
     public void cargarUsu(DefaultTableModel modelo) {
@@ -382,7 +399,7 @@ public class Generales{
             }
             cmd.close();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Error en tablaCorteCaja");
+            JOptionPane.showMessageDialog(null, "Error en tablaCorteCaja");
         }
     }
 
@@ -407,8 +424,7 @@ public class Generales{
 
         return null;
     }
-    
-    
+
     public void cargarCupones(DefaultTableModel modelo) {
 
         try {
@@ -427,5 +443,46 @@ public class Generales{
         } catch (Exception ex) {
         }
     }
-    
+
+    public void cargarCate(DefaultTableModel modelo) {
+
+        try {
+            String sql = "SELECT id, nombre from categorias";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+
+            while (rs.next()) {
+                Object[] datos = new Object[5];
+                for (int i = 0; i < 2; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+        }
+
+    }
+
+    public void insertaCat(String nom) {
+        try {
+            String sql = "insert into categorias values(null,'"+ nom +"')";
+            Statement stmt = cn.createStatement();
+            stmt.execute(sql);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar cat.\n" + ex);
+        }
+    }
+
+  public void eliminarCat(String cod) {
+        try {
+            String sql = "delete from categorias where id=" + cod;
+            PreparedStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en  eliminar cat." + ex);
+        }
+    }
 }

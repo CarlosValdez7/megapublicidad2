@@ -151,12 +151,14 @@ public class ventanaDescuento extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Este codigo ya caducó");
             } else {
                 principal.calcularDescuento(Double.parseDouble(txtDesc.getText()));
+                this.dispose();
             }
         } else {
             if (txtEstatus.getText().equals("CADUCADO")) {
                 JOptionPane.showMessageDialog(this, "Este codigo ya caducó");
             } else {
                 principal.calcularDescuentoCoti(Double.parseDouble(txtDesc.getText()));
+                this.dispose();
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed

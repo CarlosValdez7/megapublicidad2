@@ -177,12 +177,12 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
             calcularAnticipos();
 
-            if (txtAdeudo.getText().equals("0.0") && entregado.equals("TERMINADO")) {
+            if (txtAdeudo.getText().equals("0.00") && entregado.equals("TERMINADO")) {
                 String sql = "UPDATE ventas SET estadoPago='ACOMPLETO', estadoServicio='TERMINADO' "
                         + "WHERE id = " + txtCodigo.getText();
                 CallableStatement cmd = cn.prepareCall(sql);
                 cmd.execute();
-            } else if (txtAdeudo.getText().equals("0.0") && entregado.equals("NO")) {
+            } else if (txtAdeudo.getText().equals("0.00") && entregado.equals("NO")) {
                 String sql = "UPDATE ventas SET estadoPago='ACOMPLETO' "
                         + "WHERE id = " + txtCodigo.getText();
                 CallableStatement cmd = cn.prepareCall(sql);
@@ -964,7 +964,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             Desktop desktop = Desktop.getDesktop();
-            desktop.open(new java.io.File(txtTema.getText() + ".PDF"));
+            desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/"+txtTema.getText() + ".pdf"));
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "El PDF no existe");
@@ -989,7 +989,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
         try {
             Desktop desktop = Desktop.getDesktop();
-            desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\"+txtTema.getText() + ".pdf"));
+            desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/"+txtTema.getText() + ".pdf"));
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());

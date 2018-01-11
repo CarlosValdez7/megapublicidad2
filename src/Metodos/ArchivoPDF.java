@@ -50,7 +50,7 @@ public class ArchivoPDF {
             Document documento = new Document(PageSize.LETTER);
             Image img = Image.getInstance("mega200px.png");
 
-            FileOutputStream ficheroPdf = new FileOutputStream("W:\\megapublicidad2.0\\documentos\\"+nombreArchivo + ".pdf");
+            FileOutputStream ficheroPdf = new FileOutputStream("/Users/mega/Documents/Documentos sistema/"+nombreArchivo + ".pdf");
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
             documento.open();
@@ -99,7 +99,7 @@ public class ArchivoPDF {
             Document documento = new Document(PageSize.LETTER);
             Image img = Image.getInstance("mega200px.png");
 
-            FileOutputStream ficheroPdf = new FileOutputStream("W:\\megapublicidad2.0\\documentos\\"+nombreArchivo + ".pdf");
+            FileOutputStream ficheroPdf = new FileOutputStream("/Users/mega/Documents/Documentos sistema/"+nombreArchivo + ".pdf");
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
             documento.open();
@@ -183,7 +183,7 @@ public class ArchivoPDF {
 
             Image img = Image.getInstance("mega200px.png");
 
-            FileOutputStream ficheroPdf = new FileOutputStream("W:\\megapublicidad2.0\\documentos\\reportes\\"+nombreArchivo + ".pdf");
+            FileOutputStream ficheroPdf = new FileOutputStream("/Users/mega/Documents/Documentos sistema/Reportes/"+nombreArchivo + ".pdf");
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
 
@@ -223,7 +223,7 @@ public class ArchivoPDF {
             Document documento = new Document(PageSize.LETTER);
             Image img = Image.getInstance("mega200px.png");
 
-            FileOutputStream ficheroPdf = new FileOutputStream("W:\\megapublicidad2.0\\documentos\\cortes\\"+nombreArchivo + ".pdf");
+            FileOutputStream ficheroPdf = new FileOutputStream("/Users/mega/Documents/Documentos sistema/Cortes/"+nombreArchivo + ".pdf");
             PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
 
             documento.open();

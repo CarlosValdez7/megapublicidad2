@@ -703,7 +703,7 @@ public class corteCaja extends javax.swing.JFrame {
 
             try {
                 Desktop desktop = Desktop.getDesktop();
-                desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\cortes\\" + nombre + ".pdf"));
+                desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/Cortes/" + nombre + ".pdf"));
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());

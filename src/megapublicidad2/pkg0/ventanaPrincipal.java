@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -78,6 +79,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         iniciaFacturas();
         iniciaTransferencias();
         iniciaPendientes();
+        llenarCategorias();
 
         if (!ico.equals(" ")) {
             String path = "";
@@ -125,7 +127,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tablaUsuarios.getModel();
         u.cargarUsu(modelo);
     }
-    
+
     public void iniciaPendientes() {
         limpiar(tablaPendientes);
         DefaultTableModel modelo = (DefaultTableModel) tablaPendientes.getModel();
@@ -150,6 +152,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         } else {
             a.tablaTransferenciasC(modelo, "COMPLETO");
         }
+    }
+    
+    public void llenarCategorias() {
+        String[] cat = u.llenarCategorias().split(",");
+        comboTipo.setModel(new DefaultComboBoxModel((Object[]) cat));
     }
 
     public void cargarCupones() {
@@ -176,11 +183,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             estadoVenta = "CANCELADO";
         } else if (estado.equals("pagados")) {
             //Aqui es el estado del pago
-            estadoServicio = "and estadoPago='COMPLETO'";
+            estadoServicio = "and estadoPago='COMPLETO' or estadoPago='ACOMPLETO'";
         } else if (estado.equals("cotizaciones")) {
             estadoVenta = "COTIZACION";
         }
-
         a.tablaOrdenes(modelo, estadoVenta, estadoServicio);
     }
 
@@ -460,7 +466,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
             try {
                 Desktop desktop = Desktop.getDesktop();
-                desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\" + labelTema.getText() + ".PDF"));
+                desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/" + labelTema.getText() + ".PDF"));
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());
@@ -543,7 +549,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
             try {
                 Desktop desktop = Desktop.getDesktop();
-                desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\" + labelTema.getText() + ".PDF"));
+                desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/" + labelTema.getText() + ".PDF"));
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());
@@ -608,6 +614,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         radioGranFormato = new javax.swing.JRadioButton();
         radioProductos = new javax.swing.JRadioButton();
+        jButton53 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -1136,6 +1143,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         radioProductos.setSelected(true);
         radioProductos.setText("Productos");
 
+        jButton53.setText("Agregar Categoria");
+        jButton53.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton53ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -1150,9 +1164,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioGranFormato)
-                            .addComponent(radioProductos))
-                        .addGap(14, 14, 14)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(radioProductos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(radioGranFormato))
+                            .addComponent(jButton53))
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombreP, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1176,7 +1193,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                             .addComponent(txtExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1195,20 +1212,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addGap(5, 5, 5)
                         .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(5, 5, 5)
                         .addComponent(txtPI2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(radioGranFormato))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioProductos)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel26)
                         .addGap(5, 5, 5)
@@ -1216,7 +1225,16 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel27)
                         .addGap(5, 5, 5)
-                        .addComponent(txtExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtExistencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(jButton53))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(radioProductos)
+                            .addComponent(radioGranFormato))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1839,6 +1857,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/balas (1).png"))); // NOI18N
         jButton52.setBorderPainted(false);
         jButton52.setContentAreaFilled(false);
+        jButton52.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton52.setOpaque(true);
         jButton52.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2284,6 +2303,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jButton51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/balas (1).png"))); // NOI18N
         jButton51.setBorderPainted(false);
         jButton51.setContentAreaFilled(false);
+        jButton51.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton51.setOpaque(true);
         jButton51.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2305,30 +2325,28 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton46))
-                            .addGroup(panelVentasLayout.createSequentialGroup()
-                                .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE))
-                                    .addComponent(jLabel59)
-                                    .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelVentasLayout.createSequentialGroup()
-                                            .addComponent(jLabel32)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(labelTema)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton51)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton25)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton11)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton26)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jButton24))
-                                        .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE))
+                            .addComponent(jLabel59)
+                            .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelVentasLayout.createSequentialGroup()
+                                    .addComponent(jLabel32)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(labelTema)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton51)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton25)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton26)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton24))
+                                .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelVentasLayout.setVerticalGroup(
@@ -3566,8 +3584,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Guardar Cliente
-        if (txtNombre.getText().length() == 0 || txtRepre.getText().length() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe existir un nombre o representante");
+        if (txtNombre.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe existir minimo un nombre");
         } else {
 
             u.insertaCliente(txtNombre.getText(), txtRepre.getText(), txtRFC.getText(),
@@ -3576,20 +3594,18 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             cargarClientes();
             JOptionPane.showMessageDialog(this, "Cliente guardado");
 
+            txtNombre.setText("");
+            txtRepre.setText("");
+            txtRFC.setText("");
+            txtDir.setText("");
+            txtCP.setText("");
+            txtCE.setText("");
+            txtTelefono.setText("");
+            txtMunicipio.setText("");
+            txtEstado.setText("");
+            txtNumCliente.setText("");
+            txtNumCliente.setText(u.idNuevo());
         }
-
-        txtNombre.setText("");
-        txtRepre.setText("");
-        txtRFC.setText("");
-        txtDir.setText("");
-        txtCP.setText("");
-        txtCE.setText("");
-        txtTelefono.setText("");
-        txtMunicipio.setText("");
-        txtEstado.setText("");
-        txtNumCliente.setText("");
-        txtNumCliente.setText(u.idNuevo());
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -3810,10 +3826,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
-        //Generales p = new Generales();
         try {
-            if (tNombre.getText().length() == 0 || tRepre.getText().length() == 0) {
-                JOptionPane.showMessageDialog(null, "Debe existir un nombre o representante");
+            if (tNombre.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Debe existir minimo un nombre");
             } else {
 
                 u.insertaCliente(tNombre.getText(), tRepre.getText(), tRFC.getText(),
@@ -3824,7 +3839,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error, intente de nuevo");
         }
-//        iniciaClientes();
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -4051,6 +4065,18 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void jButton29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton29ActionPerformed
         // TODO add your handling code here:
+        try {
+            if (tNombre1.getText().length() == 0) {
+                JOptionPane.showMessageDialog(null, "Debe existir minimo un nombre");
+            } else {
+                u.insertaCliente(tNombre1.getText(), tRepre1.getText(), tRFC1.getText(),
+                        tDire1.getText(), "-", tEmail1.getText(),
+                        tTelefono1.getText(), "-", "-");
+                JOptionPane.showMessageDialog(null, "Cliente registrado");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error, intente de nuevo");
+        }
     }//GEN-LAST:event_jButton29ActionPerformed
 
     private void jLabel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseClicked
@@ -4132,18 +4158,21 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
         // Impuestos - Panel cotizacion
-        double impuestos = 0.00, total = 0.00, simp = 0.0;
-        String sub = "", imp = "";
+        try {
+            double impuestos = 0.00, total = 0.00, simp = 0.0;
+            String sub = "", imp = "";
 
-        total = Double.parseDouble(txtTotal1.getText());
-        simp = total / 1.16;
-        impuestos = simp * .16;
+            total = Double.parseDouble(txtTotal1.getText());
+            simp = total / 1.16;
+            impuestos = simp * .16;
 
-        sub = df.format(simp);
-        imp = df.format(impuestos);
+            sub = df.format(simp);
+            imp = df.format(impuestos);
 
-        txtSub1.setText(sub);
-        txtImpuestos1.setText(imp);
+            txtSub1.setText(sub);
+            txtImpuestos1.setText(imp);
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
@@ -4180,7 +4209,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
                 try {
                     Desktop desktop = Desktop.getDesktop();
-                    desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\" + labelTema1.getText() + ".pdf"));
+                    desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/" + labelTema1.getText() + ".pdf"));
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());
                 }
@@ -4342,7 +4371,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 p.pdfReporteVentas(archivo, articulos, f1, f2, reportesTotal.getText(), comen);
 
                 Desktop desktop = Desktop.getDesktop();
-                desktop.open(new java.io.File("W:\\megapublicidad2.0\\documentos\\reportes\\" + archivo + ".pdf"));
+                desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/Reportes" + archivo + ".pdf"));
             }
         } catch (DocumentException ex) {
             Logger.getLogger(ventanaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -4703,8 +4732,15 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         if (evt.getClickCount() == 2) {
             ventanaFacturas vf = new ventanaFacturas(codigo, cliente);
             vf.setVisible(true);
-        }        
+        }
     }//GEN-LAST:event_tablaPendientesMouseClicked
+
+    private void jButton53ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton53ActionPerformed
+        // Categorias
+        ventanaCategorias vcat = new ventanaCategorias();
+        vcat.vprin=this;
+        vcat.setVisible(true);
+    }//GEN-LAST:event_jButton53ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4807,6 +4843,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton50;
     private javax.swing.JButton jButton51;
     private javax.swing.JButton jButton52;
+    private javax.swing.JButton jButton53;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
