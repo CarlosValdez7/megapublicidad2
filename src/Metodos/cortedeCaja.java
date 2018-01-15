@@ -35,7 +35,7 @@ public class cortedeCaja {
             if (suma == null) {
                 suma = "0";
             }
-            sql = "select Sum(total) from ventas where fecha ='" + fecha + "' and tipoPago='EFECTIVO' and estadoPago='COMPLETO'";
+            sql = "select Sum(total) from ventas where (fecha ='" + fecha + "' and estadoPago='COMPLETO') and (tipoPago='EFECTIVO') ";
             cmd = cn.prepareCall(sql);
             rs = cmd.executeQuery();
             rs.next();
@@ -140,7 +140,29 @@ public class cortedeCaja {
     public void tablaCorteCaja(DefaultTableModel modelo, String fecha) {
 
         try {
-            String sql = "select id, concepto, total,'Venta' from ventas where fecha='" + fecha + "' and estadoPago='COMPLETO'";
+            String sql = "select id, concepto, total,'Transferencia' from ventas where (fecha='" + fecha + "' and estadoPago='COMPLETO')"
+                    + " and (tipoPago='EFECTIVO' OR tipoPago='CHEQUE' OR tipoPago='TARJETA')";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 4; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaCorteCaja");
+        }
+    }
+    
+    public void tablaCorteTrans(DefaultTableModel modelo, String fecha) {
+
+        try {
+            String sql = "select id, concepto, total,'Venta' from ventas where (fecha='" + fecha + "' and estadoPago='COMPLETO')"
+                    + " and (tipoPago='TRANSFERENCIA')";
+            System.out.println(sql);
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
             while (rs.next()) {
@@ -156,12 +178,13 @@ public class cortedeCaja {
         }
     }
 
+
     public void tablaCorteCajaAbonos(DefaultTableModel modelo, String fecha) {
 
         try {
             String sql = "select d.idVenta, v.concepto, d.abono,'Anticipo/Liquidacion' from ventas v "
                     + "INNER JOIN detalle_abonos d on(v.id=d.idVenta) "
-                    + "where d.fecha='" + fecha + "'";
+                    + "where d.fecha='" + fecha + "' and v.estado='VENTA'";
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
             while (rs.next()) {
@@ -185,7 +208,7 @@ public class cortedeCaja {
                     + " FROM detalle_venta d\n"
                     + " INNER JOIN productos p ON ( p.id = d.idProd ) \n"
                     + " INNER JOIN ventas v ON ( v.id = d.idVenta ) \n"
-                    + " WHERE v.fecha =  '"+fecha+"' AND v.estadoPago='COMPLETO' \n"
+                    + " WHERE v.fecha =  '"+fecha+"' and v.estado='VENTA' \n"
                     + " GROUP BY p.tipo";
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();

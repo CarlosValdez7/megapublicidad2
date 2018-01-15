@@ -143,6 +143,7 @@ public class Generales {
     public void busquedaProductos(DefaultTableModel modelo, String palabra, String tipo) {
         try {
             String sql = "SELECT  * FROM productos where " + tipo + " like '" + palabra + "%'";
+            System.out.println(sql);
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
 
@@ -162,6 +163,28 @@ public class Generales {
         }
     }
 
+    public void busquedaProductos2(DefaultTableModel modelo, String palabra, String tipo,String where) {
+        try {
+            String sql = "SELECT id,tipo,nombre,descripcion,precio,precioMaquila,existencias FROM productos where"+where+" AND(" + tipo + " like '" + palabra + "%')";
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+
+            while (rs.next()) {
+                Object[] datos = new Object[18];
+                for (int i = 0; i < 7; i++) {
+
+                    datos[i] = rs.getString(i + 1);
+                }
+
+                modelo.addRow(datos);
+            }
+            cmd.close();
+            //cn.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en busquedaProductos2");
+        }
+    }
+    
     /* METODOS PARA INSERTAR ELIMINAR Y MODIFICAR PRODUCTOS O SERVICIOS EN EL SISTEMA*/
     public void tablaProductos(DefaultTableModel modelo, String where) {
 
@@ -179,6 +202,24 @@ public class Generales {
             cmd.close();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en tablaProductos");
+        }
+    }
+    public void tablaProductos2(DefaultTableModel modelo, String where) {
+
+        try {
+            String sql = "SELECT id,tipo,nombre,descripcion,precio,precioMaquila,existencias FROM productos " + where;
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 7; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaProductos2");
         }
     }
 

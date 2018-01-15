@@ -61,6 +61,10 @@ public class Ventas {
                 cmd.execute();
                 double medidas;
                 if (med.equals("-")) {
+                    sql = "UPDATE productos SET existencias =existencias-" + cant + " WHERE id='" + codigo + "'";
+                    System.out.println(sql);
+                    cmd = cn.prepareCall(sql);
+                    cmd.execute();                    
                 } else {
                     if (cant.equals("1")) {
                         medidas = Double.parseDouble(med) + 0.5;

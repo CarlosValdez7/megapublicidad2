@@ -48,7 +48,6 @@ public class ventanaFacturas extends javax.swing.JFrame {
     private JPanel contentPane;
     File fichero = null;
     Correo c = new Correo();
-    
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public ventanaFacturas(String codigo, String cliente) {
@@ -69,12 +68,23 @@ public class ventanaFacturas extends javax.swing.JFrame {
     }
 
     public void enviarCorreo() {
+        String asunto = "Recordatorio de pago",
+                mensaje = "Por la presente queremos recordar a Usted, el vencimiento de la factura No. " + txtCodigo.getText()
+                + " cuyo importe aún no ha sido saldado.\n En caso de que haya realizado dicho pago hacer caso omiso a este mensaje.\n"
+                + "Megapublicidad agradece su preferencia.";
         String archivo = "mega200px.png", ruta = "mega200px.png";
-        c.setContrasenia("wyszcdlvkfaycili");
-        c.setUsuarioCorreo("carlosgerman.vc@gmail.com");
-        c.setAsunto("Recordatorio de pago");
-        c.setMensaje("Tiene un saldo pendiente de: "+txtAdeudo.getText()+"\nFavor de pasar a liquidarlo a la mayor brevedad posible.");
+
+        if (txtFacturaTipo.getText().equals("Cotizacion")) {
+            asunto = "Cotizacion Megapublicidad";
+            mensaje = "Le adjunto la cotizacion";
+        }
+
+        c.setContrasenia("zwrapsdyrjmnnypo");
+        c.setUsuarioCorreo("meganayarit@gmail.com");
+        c.setAsunto(asunto);
+        c.setMensaje(mensaje);
         c.setDestino(txtCorreo.getText().trim());
+
         if (!txt_fichero.getText().equals("-") && !txtRuta.getText().equals("-")) {
             archivo = txt_fichero.getText();
             ruta = txtRuta.getText();
@@ -83,7 +93,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         c.setRutaArchivo(ruta);
         Controlador co = new Controlador();
         if (co.enviarCorreo(c)) {
-            JOptionPane.showMessageDialog(this, "Se envió");
+            JOptionPane.showMessageDialog(this, "Correo enviado");
         } else {
             JOptionPane.showMessageDialog(this, "Error");
         }
@@ -106,43 +116,47 @@ public class ventanaFacturas extends javax.swing.JFrame {
     }
 
     public void rellenarCampos() {
-        //Rellenar tabla de productos
-        DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
-        a.tablaDetProd(modelo, codigo);
+            //Rellenar tabla de productos
+            DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
+            a.tablaDetProd(modelo, codigo);
 
-        //Rellenar campos de datos de cliente
-        if (a.datosCliente(cliente) != null) {
-            String datos[] = a.datosCliente(cliente).split(",");
-            txtNumCliente.setText(datos[0]);
-            txtCliente.setText(datos[1]);
-            txtRepre.setText(datos[2]);
-            txtCorreo.setText(datos[6]);
-            txtTelefono.setText(datos[7]);
-        } else {
-            JOptionPane.showMessageDialog(this, "Cliente no encontrado");
-        }
-        //Rellenar datos de venta totales,deudas,etc
-        String datos2[] = a.datosVenta(codigo).split(",");
-        txtTema.setText(datos2[0]);
-        txtTotal.setText(datos2[1]);
-        txtFecha.setText(datos2[2]);
-        txtUsuario.setText(datos2[4]);
-        txtSub.setText(datos2[5]);
-        txtDesc.setText(datos2[6]);
-        txtImp.setText(datos2[7]);
-        txtComentarios.setText(datos2[8]);
+            //Rellenar campos de datos de cliente
+            if (a.datosCliente(cliente) != null) {
+                String datos[] = a.datosCliente(cliente).split(",");
+                txtNumCliente.setText(datos[0]);
+                txtCliente.setText(datos[1]);
+                txtRepre.setText(datos[2]);
+                txtCorreo.setText(datos[6]);
+                txtTelefono.setText(datos[7]);
+            } else {
+                JOptionPane.showMessageDialog(this, "Cliente no encontrado");
+            }
+            //Rellenar datos de venta totales,deudas,etc
+            String datos2[] = a.datosVenta(codigo).split(",");
+            txtTema.setText(datos2[0]);
+            txtTotal.setText(datos2[1]);
+            txtFecha.setText(datos2[2]);
+            txtUsuario.setText(datos2[4]);
+            txtSub.setText(datos2[5]);
+            txtDesc.setText(datos2[6]);
+            txtImp.setText(datos2[7]);
+            txtComentarios.setText(datos2[8]);
 
-        txtFacturaTipo.setText(datos2[9]);
+            txtFacturaTipo.setText(datos2[9]);
 
-        String combo = datos2[3];
-        parametros(combo);
+            String combo = datos2[3];
+            parametros(combo);
+        
     }
 
     public void calcularAnticipos() {
-        if (a.calcularAnticipos(codigo) != null) {
-            txtAnticipo.setText(a.calcularAnticipos(codigo));
-            double adeudo = Double.parseDouble(txtTotal.getText()) - Double.parseDouble(txtAnticipo.getText());
-            txtAdeudo.setText(df.format(adeudo) + "");
+        try {
+            if (a.calcularAnticipos(codigo) != null) {
+                txtAnticipo.setText(a.calcularAnticipos(codigo));
+                double adeudo = Double.parseDouble(txtTotal.getText()) - Double.parseDouble(txtAnticipo.getText());
+                txtAdeudo.setText(df.format(adeudo) + "");
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -183,7 +197,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
                 CallableStatement cmd = cn.prepareCall(sql);
                 cmd.execute();
             } else if (txtAdeudo.getText().equals("0.00") && entregado.equals("NO")) {
-                String sql = "UPDATE ventas SET estadoPago='ACOMPLETO' "
+                String sql = "UPDATE ventas SET estadoPago='ACOMPLETO', estadoServicio='PENDIENTE' "
                         + "WHERE id = " + txtCodigo.getText();
                 CallableStatement cmd = cn.prepareCall(sql);
                 cmd.execute();
@@ -231,7 +245,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         Ticket2 t = new Ticket2(tic);
 
         JOptionPane.showMessageDialog(null, "Pago registrado");
-        
+
 
     }
 
@@ -951,9 +965,9 @@ public class ventanaFacturas extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (txtAdeudo.getText().equals("0.00")) {
             JOptionPane.showMessageDialog(this, "Orden Liquidada");
-        }else if(txtAdeudo.getText().equals("-")){
-            JOptionPane.showMessageDialog(this,"Esta orden no admite abonos");
-        }else{
+        } else if (txtAdeudo.getText().equals("-")) {
+            JOptionPane.showMessageDialog(this, "Esta orden no admite abonos");
+        } else {
             ventanaAbonos va = new ventanaAbonos(txtAdeudo.getText());
             va.facturas = this;
             va.setVisible(true);
@@ -964,7 +978,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             Desktop desktop = Desktop.getDesktop();
-            desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/"+txtTema.getText() + ".pdf"));
+            desktop.open(new java.io.File("C:\\Users\\Lenovo\\Documents\\Documentos Sistema\\" + txtTema.getText() + ".pdf"));
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "El PDF no existe");
@@ -989,7 +1003,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
         try {
             Desktop desktop = Desktop.getDesktop();
-            desktop.open(new java.io.File("/Users/mega/Documents/Documentos sistema/"+txtTema.getText() + ".pdf"));
+            desktop.open(new java.io.File("C:\\Users\\Lenovo\\Documents\\Documentos Sistema\\" + txtTema.getText() + ".pdf"));
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se puede abrir archivo." + ex.getMessage());

@@ -36,7 +36,7 @@ public class ventanaArticulos extends javax.swing.JFrame {
     private void iniciaTabla() {
         limpiar(tablaArticulos);
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
-        u.tablaProductos(modelo, " where tipoFormato='PRODUCTOS'");
+        u.tablaProductos2(modelo, " where tipoFormato='PRODUCTOS'");
     }
 
     /*    public void calcularConMedidas() {
@@ -49,7 +49,7 @@ public class ventanaArticulos extends javax.swing.JFrame {
     public void calcular() {
 
         if (txtMedidas.getText().equals("-")) {
-            double importe = Double.parseDouble(precio)* Double.parseDouble(txtCantidad.getText());
+            double importe = Double.parseDouble(precio) * Double.parseDouble(txtCantidad.getText());
             txtImporte.setText(df.format(importe) + "");
         } else {
             double importe = (Double.parseDouble(txtMedidas.getText()) * Double.parseDouble(precio))
@@ -120,11 +120,11 @@ public class ventanaArticulos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Tipo", "Nombre", "Descripcion", "Precio General", "Precio Maquila"
+                "#", "Tipo", "Nombre", "Descripcion", "Precio General", "Precio Maquila", "Existencias"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -337,7 +337,7 @@ public class ventanaArticulos extends javax.swing.JFrame {
         limpiar(tablaArticulos);
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
         String comb = combo.getSelectedItem() + "";
-        u.busquedaProductos(modelo, txtBus.getText(), comb);
+        u.busquedaProductos2(modelo, txtBus.getText(), comb," tipoFormato='PRODUCTOS' ");
     }//GEN-LAST:event_txtBusKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
@@ -350,18 +350,25 @@ public class ventanaArticulos extends javax.swing.JFrame {
     // double alto=0,ancho=0;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       String comentario="";
-        if(!txtMedidas.getText().equals("-")){
-            comentario="("+txtMedidas.getText()+" ML)";
-        }
-        
-        if (panel.equals("VENTAS")) {
-            ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText()+comentario , txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+        String comentario = "";
+        if (existencia.equals("0")) {
+            JOptionPane.showMessageDialog(this, "Producto con 0 existencias");
         } else {
-            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText()+comentario, txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+            if (!txtMedidas.getText().equals("-")) {
+                comentario = "(" + txtMedidas.getText() + " ML)";
+            }
+
+            if (panel.equals("VENTAS")) {
+                ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText() + comentario, txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+            } else {
+                ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText() + comentario, txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+            }
+        }
+        if(Double.parseDouble(existencia)<20){
+            JOptionPane.showMessageDialog(this,"¡Advertencia!\nArticulo por agotar.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    String existencia = "";
     private void tablaArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaArticulosMouseClicked
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
@@ -369,6 +376,8 @@ public class ventanaArticulos extends javax.swing.JFrame {
         txtCodigo.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 0) + "");
         txtNombre.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 2) + "");
         txtDesc.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 3) + "");
+        existencia = modelo.getValueAt(tablaArticulos.getSelectedRow(), 6) + "";
+
 
         if (radioPublicoG.isSelected()) {
             txtPrec.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 4) + "");

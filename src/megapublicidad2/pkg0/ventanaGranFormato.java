@@ -36,7 +36,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
     private void iniciaTabla() {
         limpiar(tablaArticulos);
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
-        u.tablaProductos(modelo, " where tipoFormato='GRAN FORMATO'");
+        u.tablaProductos2(modelo, " where tipoFormato='GRAN FORMATO'");
     }
 
     /*    public void calcularConMedidas() {
@@ -47,12 +47,13 @@ public class ventanaGranFormato extends javax.swing.JFrame {
      }
      */
     public void calcular() {
-        try{
-        double cantidad = Double.parseDouble(txtCantidad.getText());
-        double medidas = Double.parseDouble(txtMedidas.getText());
-        double importe = (medidas * Double.parseDouble(precio)) * cantidad;
-        txtImporte.setText(df.format(importe) + "");
-        }catch(Exception e){}
+        try {
+            double cantidad = Double.parseDouble(txtCantidad.getText());
+            double medidas = Double.parseDouble(txtMedidas.getText());
+            double importe = (medidas * Double.parseDouble(precio)) * cantidad;
+            txtImporte.setText(df.format(importe) + "");
+        } catch (Exception e) {
+        }
     }
 
     private void limpiar(JTable tabla) {
@@ -121,11 +122,11 @@ public class ventanaGranFormato extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#", "Tipo", "Nombre", "Descripcion", "Precio General", "Precio Maquila"
+                "#", "Tipo", "Nombre", "Descripcion", "Precio General", "Precio Maquila", "Existencias"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -393,7 +394,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         limpiar(tablaArticulos);
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
         String comb = combo.getSelectedItem() + "";
-        u.busquedaProductos(modelo, txtBus.getText(), comb);
+        u.busquedaProductos2(modelo, txtBus.getText(), comb," tipoFormato='GRAN FORMATO' ");
     }//GEN-LAST:event_txtBusKeyReleased
 
     private void txtMedidasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMedidasKeyReleased
@@ -416,16 +417,23 @@ public class ventanaGranFormato extends javax.swing.JFrame {
     // double alto=0,ancho=0;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        if (panel.equals("VENTA")) {
-            ventas.agregarArticulo(          txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", 
-                    txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
+        if (existencias.equals("0")) {
+            JOptionPane.showMessageDialog(this, "Producto con 0 existencias");
         } else {
-            ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText()+"("+txtBase.getText()+"*"+txtAltura.getText()+")", 
-                    txtMedidas.getText(),txtCantidad.getText(), precio, txtImporte.getText());
+            if (panel.equals("VENTA")) {
+                ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText() + "(" + txtBase.getText() + "*" + txtAltura.getText() + ")="+txtMedidas.getText(),
+                        txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+            } else {
+                ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText() + "(" + txtBase.getText() + "*" + txtAltura.getText() + ")="+txtMedidas.getText(),
+                        txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+            }
+        }
+        
+        if(Double.parseDouble(existencias)<30){
+            JOptionPane.showMessageDialog(this,"¡Advertencia!\nArticulo por agotar.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    String existencias = "";
     private void tablaArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaArticulosMouseClicked
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
@@ -433,6 +441,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         txtCodigo.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 0) + "");
         txtNombre.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 2) + "");
         txtDesc.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 3) + "");
+        existencias = modelo.getValueAt(tablaArticulos.getSelectedRow(), 6) + "";
 
         if (radioPublicoG.isSelected()) {
             txtPrec.setText(modelo.getValueAt(tablaArticulos.getSelectedRow(), 4) + "");
@@ -463,8 +472,8 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCantidadKeyReleased
 
-    public void calcularImporte(){
-           try {
+    public void calcularImporte() {
+        try {
             double importe = 0;
             double prec = Double.parseDouble(precio);
             double cantidad = Double.parseDouble(txtCantidad.getText());
@@ -480,7 +489,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         }
 
     }
-    
+
     private void txtBaseKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBaseKeyReleased
         // TODO add your handling code here:
         try {
