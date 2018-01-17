@@ -109,15 +109,15 @@ public class Registros {
                 for (int i = 0; i <= 9; i++) {
                     datos[i] = rs.getString(i + 1);
                 }
-                String a = datos[0] + " ,"
-                        + datos[1] + " ,"
-                        + datos[2] + " ,"
-                        + datos[3] + " ,"
-                        + datos[4] + " ,"
-                        + datos[5] + " ,"
-                        + datos[6] + " ,"
-                        + datos[7] + " ,"
-                        + datos[8] + " ,"
+                String a = datos[0] + " ~"
+                        + datos[1] + " ~"
+                        + datos[2] + " ~"
+                        + datos[3] + " ~"
+                        + datos[4] + " ~"
+                        + datos[5] + " ~"
+                        + datos[6] + " ~"
+                        + datos[7] + " ~"
+                        + datos[8] + " ~"
                         + datos[9];
                 return a;
             }
@@ -141,15 +141,15 @@ public class Registros {
                 for (int i = 0; i <= 9; i++) {
                     datos[i] = rs.getString(i + 1);
                 }
-                String a = datos[0] + "," + ""
-                        + datos[1] + "," + ""
-                        + datos[2] + "," + ""
-                        + datos[3] + "," + ""
-                        + datos[4] + "," + ""
-                        + datos[5] + "," + ""
-                        + datos[6] + "," + ""
-                        + datos[7] + "," + ""
-                        + datos[8] + "," + ""
+                String a = datos[0] + "~" + ""
+                        + datos[1] + "~" + ""
+                        + datos[2] + "~" + ""
+                        + datos[3] + "~" + ""
+                        + datos[4] + "~" + ""
+                        + datos[5] + "~" + ""
+                        + datos[6] + "~" + ""
+                        + datos[7] + "~" + ""
+                        + datos[8] + "~" + ""
                         + datos[9];
                 // System.out.println(a);
                 return a;
@@ -258,6 +258,18 @@ public class Registros {
             PreparedStatement cmd = cn.prepareCall(sql);
             cmd.execute();
             cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en actualizar factura");
+        }
+    }
+    
+    public void actualizaFacturaSI(String cod) {
+        try {
+            String sql = "update ventas set factura='SI' where id=" + cod;
+            PreparedStatement cmd = cn.prepareCall(sql);
+            cmd.execute();
+            cmd.close();
+            JOptionPane.showMessageDialog(null,"¡Factura en pendientes!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en actualizar factura");
         }
@@ -379,16 +391,16 @@ public class Registros {
                 for (int i = 0; i <= 9; i++) {
                     datos[i] = rs.getString(i + 1);
                 }
-                String a = datos[0] + ","
-                        + datos[1] + ","
-                        + datos[2] + ","
-                        + datos[3] + ","
-                        + datos[4] + ","
-                        + datos[5] + ","
-                        + datos[6] + ","
-                        + datos[7] + ","
-                        + datos[8] + ","
-                        + datos[9];
+                String a = datos[0] + " ,"
+                        + datos[1] + " ,"
+                        + datos[2] + " ,"
+                        + datos[3] + " ,"
+                        + datos[4] + " ,"
+                        + datos[5] + " ,"
+                        + datos[6] + " ,"
+                        + datos[7] + " ,"
+                        + datos[8] + " ,"
+                        + datos[9]+" ";
                 return a;
             }
 

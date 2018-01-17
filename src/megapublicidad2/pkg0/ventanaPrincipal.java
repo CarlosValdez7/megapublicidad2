@@ -840,6 +840,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel54 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         jButton56 = new javax.swing.JButton();
+        jButton57 = new javax.swing.JButton();
         panelInicio = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane13 = new javax.swing.JScrollPane();
@@ -876,7 +877,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -3206,6 +3207,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton57.setText("Entradas/Salidas");
+        jButton57.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton57ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -3215,6 +3223,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton57)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton56)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton19))
@@ -3238,7 +3248,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton19)
-                    .addComponent(jButton56))
+                    .addComponent(jButton56)
+                    .addComponent(jButton57))
                 .addContainerGap())
         );
 
@@ -3896,7 +3907,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 u.insertaCliente(tNombre.getText(), tRepre.getText(), tRFC.getText(),
                         tDire.getText(), "-", tEmail.getText(),
                         tTelefono.getText(), "-", "-");
-                JOptionPane.showMessageDialog(null, "Cliente registrado");
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error, intente de nuevo");
@@ -4019,7 +4030,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void jLabel32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel32MouseClicked
         // TODO add your handling code here:
         String tema = JOptionPane.showInputDialog(this, "Ingrese tema:");
-        labelTema.setText(tema);
+        if (tema == null || tema.equals("")) {
+            labelTema.setText("-");
+        } else {
+            labelTema.setText(tema);
+        }
     }//GEN-LAST:event_jLabel32MouseClicked
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
@@ -4194,7 +4209,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void jLabel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseClicked
         // TODO add your handling code here:
         String tema = JOptionPane.showInputDialog(this, "Tema de cotización:");
-        labelTema1.setText(tema);
+        if (tema == null || tema.equals("")) {
+            labelTema1.setText("-");
+        } else {
+            labelTema1.setText(tema);
+        }
     }//GEN-LAST:event_jLabel44MouseClicked
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
@@ -4268,7 +4287,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         vd.setVisible(true);
 
     }//GEN-LAST:event_jButton35ActionPerformed
-    String estadoImpuesto = "S",estadoImpuesto2="S";
+    String estadoImpuesto = "S", estadoImpuesto2 = "S";
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
         // Impuestos - Panel cotizacion
         try {
@@ -4879,6 +4898,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         iniciaCortes();
     }//GEN-LAST:event_jButton56ActionPerformed
 
+    private void jButton57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton57ActionPerformed
+        // TODO add your handling code here:
+        ventanaGastos vgas = new ventanaGastos();
+        vgas.setVisible(true);
+    }//GEN-LAST:event_jButton57ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4986,6 +5011,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton54;
     private javax.swing.JButton jButton55;
     private javax.swing.JButton jButton56;
+    private javax.swing.JButton jButton57;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;

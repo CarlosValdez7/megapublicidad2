@@ -39,6 +39,24 @@ public class ventanaArticulos extends javax.swing.JFrame {
         u.tablaProductos2(modelo, " where tipoFormato='PRODUCTOS'");
     }
 
+    public void calcularPrecioU() {
+        double pu = 0, medidas = 0;
+        double prec = Double.parseDouble(precio);
+        if (!txtMedidas.getText().equals("-")) {
+            medidas = Double.parseDouble(txtMedidas.getText());
+        }
+        double cantidad = Double.parseDouble(txtCantidad.getText());
+
+        if (txtMedidas.getText().equals("-")) {
+            pu = (cantidad * prec);
+            txtPrecioUnitario.setText(df.format(pu));
+        } else {
+            pu = (medidas * prec);
+            txtPrecioUnitario.setText(df.format(pu));
+        }
+    }
+
+
     /*    public void calcularConMedidas() {
      String cantidad = txtCantidad.getText();
      double num = Double.parseDouble(cantidad);
@@ -98,6 +116,8 @@ public class ventanaArticulos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtMedidas = new javax.swing.JTextField();
+        txtPrecioUnitario = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -241,6 +261,13 @@ public class ventanaArticulos extends javax.swing.JFrame {
             }
         });
 
+        txtPrecioUnitario.setEditable(false);
+        txtPrecioUnitario.setText("0");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Precio Unitario");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -249,39 +276,43 @@ public class ventanaArticulos extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel15)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(118, 118, 118)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtPrec, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtMedidas))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(radioPublicoG)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(radioMaquila)))))
-                        .addGap(11, 11, 11))
+                        .addComponent(jLabel10)
+                        .addGap(118, 118, 118)
+                        .addComponent(jLabel2))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtPrec, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addContainerGap())))
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtMedidas))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(radioPublicoG)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioMaquila))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(11, 11, 11))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,22 +337,28 @@ public class ventanaArticulos extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel12)
                 .addGap(5, 5, 5)
-                .addComponent(txtPrec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtPrec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMedidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 420));
@@ -337,13 +374,14 @@ public class ventanaArticulos extends javax.swing.JFrame {
         limpiar(tablaArticulos);
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
         String comb = combo.getSelectedItem() + "";
-        u.busquedaProductos2(modelo, txtBus.getText(), comb," tipoFormato='PRODUCTOS' ");
+        u.busquedaProductos2(modelo, txtBus.getText(), comb, " tipoFormato='PRODUCTOS' ");
     }//GEN-LAST:event_txtBusKeyReleased
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
         // TODO add your handling code here:
         try {
             calcular();
+            calcularPrecioU();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtCantidadKeyReleased
@@ -351,7 +389,7 @@ public class ventanaArticulos extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String comentario = "";
-        if (existencia.equals("0")) {
+        if (existencia.equals("0") || existencia.equals("0.0")) {
             JOptionPane.showMessageDialog(this, "Producto con 0 existencias");
         } else {
             if (!txtMedidas.getText().equals("-")) {
@@ -359,13 +397,13 @@ public class ventanaArticulos extends javax.swing.JFrame {
             }
 
             if (panel.equals("VENTAS")) {
-                ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText() + comentario, txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+                ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText() + comentario, txtMedidas.getText(), txtCantidad.getText(), txtPrecioUnitario.getText(), txtImporte.getText());
             } else {
-                ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText() + comentario, txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+                ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText() + comentario, txtMedidas.getText(), txtCantidad.getText(), txtPrecioUnitario.getText(), txtImporte.getText());
             }
         }
-        if(Double.parseDouble(existencia)<20){
-            JOptionPane.showMessageDialog(this,"¡Advertencia!\nArticulo por agotar.");
+        if (Double.parseDouble(existencia) < 20) {
+            JOptionPane.showMessageDialog(this, "¡Advertencia!\nArticulo por agotar.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
     String existencia = "";
@@ -388,12 +426,14 @@ public class ventanaArticulos extends javax.swing.JFrame {
         }
 
         calcular();
+        calcularPrecioU();
     }//GEN-LAST:event_tablaArticulosMouseClicked
 
     private void txtMedidasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMedidasKeyReleased
         // TODO add your handling code here:
         try {
             calcular();
+            calcularPrecioU();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtMedidasKeyReleased
@@ -442,6 +482,7 @@ public class ventanaArticulos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
@@ -459,5 +500,6 @@ public class ventanaArticulos extends javax.swing.JFrame {
     private javax.swing.JTextField txtMedidas;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrec;
+    private javax.swing.JTextField txtPrecioUnitario;
     // End of variables declaration//GEN-END:variables
 }

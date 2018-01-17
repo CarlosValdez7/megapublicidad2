@@ -139,8 +139,8 @@ public class cortedeCaja {
 
     public void tablaCorteCaja(DefaultTableModel modelo, String fecha) {
 
-        try {
-            String sql = "select id, concepto, total,'Transferencia' from ventas where (fecha='" + fecha + "' and estadoPago='COMPLETO')"
+        try { 
+            String sql = "select id, concepto, total,'Venta' from ventas where (fecha='" + fecha + "' and estadoPago='COMPLETO')"
                     + " and (tipoPago='EFECTIVO' OR tipoPago='CHEQUE' OR tipoPago='TARJETA')";
             CallableStatement cmd = cn.prepareCall(sql);
             ResultSet rs = cmd.executeQuery();
@@ -160,7 +160,7 @@ public class cortedeCaja {
     public void tablaCorteTrans(DefaultTableModel modelo, String fecha) {
 
         try {
-            String sql = "select id, concepto, total,'Venta' from ventas where (fecha='" + fecha + "' and estadoPago='COMPLETO')"
+            String sql = "select id, concepto, total,'Transferencias' from ventas where (fecha='" + fecha + "' and estadoPago='COMPLETO')"
                     + " and (tipoPago='TRANSFERENCIA')";
             System.out.println(sql);
             CallableStatement cmd = cn.prepareCall(sql);
@@ -224,5 +224,25 @@ public class cortedeCaja {
             JOptionPane.showMessageDialog(null, "Error en tablaCorteCajaAbonos");
         }
 
+    }
+    
+    public void tablaGastos(DefaultTableModel modelo, String fecha) {
+
+        try { 
+            String sql = "select concepto,total,tipo from gastos where fecha='"+fecha+"'";
+            System.out.println(sql);
+            CallableStatement cmd = cn.prepareCall(sql);
+            ResultSet rs = cmd.executeQuery();
+            while (rs.next()) {
+                Object[] datos = new Object[10];
+                for (int i = 0; i < 3; i++) {
+                    datos[i] = rs.getString(i + 1);
+                }
+                modelo.addRow(datos);
+            }
+            cmd.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en tablaGastos");
+        }
     }
 }

@@ -58,12 +58,15 @@ public class corteCaja extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tablaCorte.getModel();
         DefaultTableModel modelo2 = (DefaultTableModel) tablaTipos.getModel();
         DefaultTableModel modelo3 = (DefaultTableModel) tablaTrans.getModel();
+        DefaultTableModel modelo4 = (DefaultTableModel) jTable1.getModel();
         u.tablaCorteCaja(modelo, fecha);
         u.tablaCorteCajaAbonos(modelo, fecha);
         u.tablaCorteCajaTipos(modelo2, fecha);
         u.tablaCorteTrans(modelo3, fecha);
+        u.tablaGastos(modelo4, fecha);
         cambiarPrecios();
         sumaTipos();
+        sumaGastos();
     }
 
     public void cambiarPrecios() {
@@ -92,6 +95,7 @@ public class corteCaja extends javax.swing.JFrame {
             totalGastos = totalGastos + Float.parseFloat(modelo2.getValueAt(i, 1) + "");
         }
         labelGastos.setText(df.format(totalGastos));
+        
         //double suma2 = (Double.parseDouble(sumEfec.getText()) + Double.parseDouble(sumTar.getText()) + Double.parseDouble(sumCheque.getText())) + Double.parseDouble(labelGastos.getText());
         //System.out.println(sumEfec.getText()+" + "+sumTar.getText()+" + "+sumCheque.getText()+ " + "+labelGastos.getText()+" = "+suma2 );
         //totalCalculado.setText(df.format(suma2));
@@ -169,9 +173,9 @@ public class corteCaja extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCorte = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaTipos = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -449,10 +453,7 @@ public class corteCaja extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaCorte);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 600, 100));
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoCobro2.png"))); // NOI18N
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 420));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 600, 70));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -472,7 +473,10 @@ public class corteCaja extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 550, 30));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 590, 70));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoCobro2.png"))); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 420));
 
         tablaTipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -557,6 +561,9 @@ public class corteCaja extends javax.swing.JFrame {
             cmd.close();
             JOptionPane.showMessageDialog(null, "Corte de caja guardado");
 
+        }catch(Exception e){JOptionPane.showMessageDialog(this,"Error en corte\n"+e);
+        }
+        try{
             DefaultTableModel modelo = (DefaultTableModel) tablaCorte.getModel();
             Object[][] articulos = obtenerArticulos(modelo);
 
@@ -657,7 +664,7 @@ public class corteCaja extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error en registro del corte" + ex);
         }
 
-        //this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tCajaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tCajaKeyReleased
@@ -707,7 +714,7 @@ public class corteCaja extends javax.swing.JFrame {
             modelo.addRow(new Object[]{mov, "-" + gasto, "Salida"});
             sumaGastos();
         }
-        jTable1.setVisible(false);
+        //jTable1.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -721,7 +728,7 @@ public class corteCaja extends javax.swing.JFrame {
             modelo.addRow(new Object[]{mov, gasto, "Entrada"});
             sumaGastos();
         }
-         jTable1.setVisible(false);
+        // jTable1.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

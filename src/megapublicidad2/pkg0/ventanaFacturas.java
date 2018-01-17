@@ -122,7 +122,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
 
             //Rellenar campos de datos de cliente
             if (a.datosCliente(cliente) != null) {
-                String datos[] = a.datosCliente(cliente).split(",");
+                String datos[] = a.datosCliente(cliente).split("~");
                 txtNumCliente.setText(datos[0]);
                 txtCliente.setText(datos[1]);
                 txtRepre.setText(datos[2]);
@@ -132,7 +132,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Cliente no encontrado");
             }
             //Rellenar datos de venta totales,deudas,etc
-            String datos2[] = a.datosVenta(codigo).split(",");
+            String datos2[] = a.datosVenta(codigo).split("~");
             txtTema.setText(datos2[0]);
             txtTotal.setText(datos2[1]);
             txtFecha.setText(datos2[2]);
@@ -465,6 +465,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
         txtFacturaTipo = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -731,6 +732,13 @@ public class ventanaFacturas extends javax.swing.JFrame {
             }
         });
 
+        jButton9.setText("Pedir Factura");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -740,6 +748,8 @@ public class ventanaFacturas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jButton8)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(botonConcretar)
@@ -930,7 +940,8 @@ public class ventanaFacturas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5)
                             .addComponent(botonConcretar)
-                            .addComponent(jButton8)))
+                            .addComponent(jButton8)
+                            .addComponent(jButton9)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1055,6 +1066,11 @@ public class ventanaFacturas extends javax.swing.JFrame {
         txtRuta.setText("-");
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        //PEDIR FACTURA
+        a.actualizaFacturaSI(txtCodigo.getText());
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1100,6 +1116,7 @@ public class ventanaFacturas extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

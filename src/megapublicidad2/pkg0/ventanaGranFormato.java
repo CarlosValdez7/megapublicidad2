@@ -100,6 +100,8 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         txtBase = new javax.swing.JTextField();
         txtAltura = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtPrecioUnitario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -281,6 +283,13 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Ancho");
 
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Precio Unitario");
+
+        txtPrecioUnitario.setEditable(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -291,13 +300,11 @@ public class ventanaGranFormato extends javax.swing.JFrame {
                     .addComponent(txtPrec)
                     .addComponent(txtDesc)
                     .addComponent(txtNombre)
-                    .addComponent(jLabel2)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
@@ -315,18 +322,26 @@ public class ventanaGranFormato extends javax.swing.JFrame {
                                 .addComponent(radioMaquila))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBase, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtBase, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMedidas)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtMedidas))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -368,9 +383,13 @@ public class ventanaGranFormato extends javax.swing.JFrame {
                             .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecioUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton2)
@@ -394,7 +413,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         limpiar(tablaArticulos);
         DefaultTableModel modelo = (DefaultTableModel) tablaArticulos.getModel();
         String comb = combo.getSelectedItem() + "";
-        u.busquedaProductos2(modelo, txtBus.getText(), comb," tipoFormato='GRAN FORMATO' ");
+        u.busquedaProductos2(modelo, txtBus.getText(), comb, " tipoFormato='GRAN FORMATO' ");
     }//GEN-LAST:event_txtBusKeyReleased
 
     private void txtMedidasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMedidasKeyReleased
@@ -410,6 +429,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
             } else {
                 importe = (medidas * prec) * cantidad;
                 txtImporte.setText(df.format(importe) + "");
+                calcularPrecioU();
             }
         } catch (Exception e) {
         }
@@ -417,20 +437,20 @@ public class ventanaGranFormato extends javax.swing.JFrame {
     // double alto=0,ancho=0;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (existencias.equals("0")) {
+        if (existencias.equals("0") || existencias.equals("0.0")) {
             JOptionPane.showMessageDialog(this, "Producto con 0 existencias");
         } else {
             if (panel.equals("VENTA")) {
-                ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText() + "(" + txtBase.getText() + "*" + txtAltura.getText() + ")="+txtMedidas.getText(),
-                        txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+                ventas.agregarArticulo(txtCodigo.getText(), txtNombre.getText() + "(" + txtBase.getText() + "*" + txtAltura.getText() + ")=" + txtMedidas.getText(),
+                        txtMedidas.getText(), txtCantidad.getText(), txtPrecioUnitario.getText(), txtImporte.getText());
             } else {
-                ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText() + "(" + txtBase.getText() + "*" + txtAltura.getText() + ")="+txtMedidas.getText(),
-                        txtMedidas.getText(), txtCantidad.getText(), precio, txtImporte.getText());
+                ventas.agregarArticuloCotizacion(txtCodigo.getText(), txtNombre.getText() + "(" + txtBase.getText() + "*" + txtAltura.getText() + ")=" + txtMedidas.getText(),
+                        txtMedidas.getText(), txtCantidad.getText(), txtPrecioUnitario.getText(), txtImporte.getText());
             }
         }
-        
-        if(Double.parseDouble(existencias)<30){
-            JOptionPane.showMessageDialog(this,"¡Advertencia!\nArticulo por agotar.");
+
+        if (Double.parseDouble(existencias) < 30) {
+            JOptionPane.showMessageDialog(this, "¡Advertencia!\nArticulo por agotar.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
     String existencias = "";
@@ -452,6 +472,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         }
 
         calcular();
+        calcularPrecioU();
     }//GEN-LAST:event_tablaArticulosMouseClicked
 
     private void txtCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyReleased
@@ -471,6 +492,16 @@ public class ventanaGranFormato extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtCantidadKeyReleased
+
+    public void calcularPrecioU() {
+        double pu = 0;
+        double prec = Double.parseDouble(precio);
+        double medidas = Double.parseDouble(txtMedidas.getText());
+
+        pu = (medidas * prec);
+        txtPrecioUnitario.setText(df.format(pu));
+        System.out.println(pu);
+    }
 
     public void calcularImporte() {
         try {
@@ -496,6 +527,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
             double resultado = Double.parseDouble(txtBase.getText()) * Double.parseDouble(txtAltura.getText());
             txtMedidas.setText(df.format(resultado));
             calcularImporte();
+            calcularPrecioU();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtBaseKeyReleased
@@ -506,6 +538,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
             double resultado = Double.parseDouble(txtBase.getText()) * Double.parseDouble(txtAltura.getText());
             txtMedidas.setText(df.format(resultado));
             calcularImporte();
+            calcularPrecioU();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_txtAlturaKeyReleased
@@ -558,6 +591,7 @@ public class ventanaGranFormato extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
@@ -575,5 +609,6 @@ public class ventanaGranFormato extends javax.swing.JFrame {
     private javax.swing.JTextField txtMedidas;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrec;
+    private javax.swing.JTextField txtPrecioUnitario;
     // End of variables declaration//GEN-END:variables
 }

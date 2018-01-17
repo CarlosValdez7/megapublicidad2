@@ -33,14 +33,13 @@ public class Generales {
             String sql = "insert into clientes values(null,'" + nom + "','" + rep + "','" + rfc + "','" + dir + "'"
                     + ",'" + cp + "','" + correo + "','" + tel + "','" + mun + "','" + est + "')";
 
-            Statement stmt = cn.createStatement();
-            stmt.execute(sql);
-            /*PreparedStatement cmd = cn.prepareCall(sql);
+             PreparedStatement cmd = cn.prepareCall(sql);
              cmd.execute();
 
-             cmd.close();*/
+             cmd.close();
+             JOptionPane.showMessageDialog(null, "Cliente registrado");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar cliente.\n" + ex);
+            JOptionPane.showMessageDialog(null, "Error al guardar cliente.\n" );
         }
     }
 
